@@ -70,7 +70,7 @@ Rules used in this repo:
 | Header: two rows on phones, one from `md`           | Name and controls on the first row, nav below (`order-last w-full md:order-none md:w-auto`). Icon-only buttons with an `aria-label`; the text appears from `sm` (`hidden sm:inline`) |
 | Page padding                                        | `px-4 sm:px-page`                                                                                                                                                                    |
 
-Desktop: the Electron window has a minimum size of 360x480 (`minWidth`, `minHeight` in `apps/desktop/src/main.ts`).
+Desktop: the Electron window has a minimum size of 800x600 (`minWidth`, `minHeight` in `apps/desktop/src/main.ts`). 800 px is just above the `md` breakpoint (768 px), so the window always keeps the desktop layout. The UI itself is responsive down to phone width, so a project that needs a smaller window can lower these numbers.
 
 ### How to check
 

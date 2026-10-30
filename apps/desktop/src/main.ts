@@ -37,9 +37,10 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 760,
-    // The UI is responsive down to phone width; below this the window is not useful.
-    minWidth: 360,
-    minHeight: 480,
+    // 800 is just above the `md` breakpoint (768 px), so the window always keeps the desktop
+    // layout: one-row header and two-column panels. Change it if your app needs a smaller window.
+    minWidth: 800,
+    minHeight: 600,
     show: false,
     webPreferences: {
       preload: join(__dirname, "../preload/preload.js"),
