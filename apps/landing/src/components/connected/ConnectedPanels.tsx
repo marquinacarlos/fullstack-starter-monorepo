@@ -18,12 +18,12 @@ export function ConnectedPanels() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <PanelREST />
         <PanelGraphQL />
         <PanelWebSocket />
       </div>
-      <div className="mt-4 grid gap-4 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         <PanelDatabases />
       </div>
     </QueryClientProvider>

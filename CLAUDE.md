@@ -6,6 +6,7 @@ Quick rules (details in the docs):
 
 - Layout: `apps/{api,web,desktop,landing}` and `packages/{ui,lib,tailwind-config}`. pnpm + Turborepo; Python managed with uv.
 - Every channel (REST, GraphQL, WebSocket) and library has its own visible, independent proof in the UI. Do not couple panels together and do not add features "just in case".
+- Responsive is **mobile first**: base classes style the phone, `sm:`/`md:`/`lg:` enlarge. Check 320, 375, 768 and 1280 px before finishing UI work (`docs/TAILWIND.md`).
 - Tailwind v4 is CSS-first: never create `tailwind.config.*`.
 - i18n: one JSON file per namespace per language. See `docs/I18N.md`.
 - Databases are optional and independent (SQLite on by default, PostgreSQL ready). See `docs/DATABASES.md`.

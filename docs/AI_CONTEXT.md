@@ -110,6 +110,7 @@ With no database left, the API still serves `/health`, GraphQL `health` and the 
 - Package names: `@repo/<name>`. Internal dependencies use `workspace:*`. Shared third-party versions use `catalog:` (defined in `pnpm-workspace.yaml`).
 - Every app has the scripts `dev`, `build`, `lint`, `test`. Turborepo runs them by name.
 - Shared packages are consumed as TypeScript source. They have no build step.
+- **Mobile first**: base classes are for phones; add `sm:`/`md:`/`lg:` for wider screens. Every grid has a base `grid-cols-1`. Touch targets are 44 px on phones. See [TAILWIND.md](TAILWIND.md#responsive-design-mobile-first).
 - Tailwind v4 is **CSS-first**. Never create `tailwind.config.*`. Tokens live in `packages/tailwind-config/shared-styles.css`.
 - i18n: one JSON file per namespace per language. Never one big JSON.
 - Panels must stay independent: no shared hooks or stores between them. Query keys start with the channel name.

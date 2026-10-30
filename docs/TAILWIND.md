@@ -53,3 +53,29 @@ Other tokens: fonts (`--font-sans`, `--font-mono`), `--radius-card` (`rounded-ca
 ## Add a token
 
 Add the variable in `:root` and `.dark`, then map it in `@theme inline`. Every app gets it.
+
+## Responsive design (mobile first)
+
+All three apps are built **mobile first**: the plain classes style a phone, and `sm:`, `md:` and `lg:` only add changes for wider screens. Tailwind breakpoints are `min-width`: `sm` 640 px, `md` 768 px, `lg` 1024 px. Do not use `max-*:` variants to patch the desktop layout.
+
+Rules used in this repo:
+
+| Rule                                                | Example                                                                                                                                                                              |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Give every grid a base column, then grow            | `grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3`. Without `grid-cols-1`, one long word makes the grid wider than the screen                                                    |
+| Touch targets of 44 px on phones, compact from `sm` | `min-h-11 sm:min-h-0 sm:py-1.5` (`Button` and `Input` in `@repo/ui` already do it)                                                                                                   |
+| Inputs at 16 px on phones                           | `text-base sm:text-sm` (below 16 px iOS zooms the page when you focus the field)                                                                                                     |
+| Let long text break                                 | `wrap-anywhere` on lists and user content. `min-w-0` on grid and flex children (`Card` has it)                                                                                       |
+| Stack forms on phones                               | `flex flex-col gap-2 sm:flex-row`                                                                                                                                                    |
+| Header: two rows on phones, one from `md`           | Name and controls on the first row, nav below (`order-last w-full md:order-none md:w-auto`). Icon-only buttons with an `aria-label`; the text appears from `sm` (`hidden sm:inline`) |
+| Page padding                                        | `px-4 sm:px-page`                                                                                                                                                                    |
+
+Desktop: the Electron window has a minimum size of 360x480 (`minWidth`, `minHeight` in `apps/desktop/src/main.ts`).
+
+### How to check
+
+There are no component or E2E tests (see [TESTING.md](TESTING.md)), so check by hand in the browser at 320, 375, 768 and 1280 px, with a very long item name (`POST /api/items` accepts up to 100 characters without spaces). In the console, this must be `false` at every width:
+
+```js
+document.documentElement.scrollWidth > document.documentElement.clientWidth;
+```

@@ -19,17 +19,17 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
 
   return (
     <>
-      <h1 className="text-3xl font-bold">{t("title")}</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">{t("title")}</h1>
       <p className="mt-2 mb-6 text-muted-foreground">{t("greeting")}</p>
       <Link
         href="/download"
-        className="inline-block rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        className="inline-flex min-h-11 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground sm:min-h-0 sm:py-2"
       >
         {t("cta")}
       </Link>
 
       <h2 className="mt-12 mb-4 text-xl font-semibold">{t("features.title")}</h2>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {features.map(({ key, icon }) => (
           <section key={key} className="rounded-card border border-border bg-card p-4">
             <div className="mb-2 flex items-center gap-2 font-semibold">

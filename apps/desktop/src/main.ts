@@ -37,6 +37,9 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1100,
     height: 760,
+    // The UI is responsive down to phone width; below this the window is not useful.
+    minWidth: 360,
+    minHeight: 480,
     show: false,
     webPreferences: {
       preload: join(__dirname, "../preload/preload.js"),

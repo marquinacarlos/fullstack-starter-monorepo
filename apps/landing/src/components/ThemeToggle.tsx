@@ -17,9 +17,15 @@ export function ThemeToggle() {
   }, [syncFromDocument]);
 
   return (
-    <Button variant="secondary" onClick={toggleTheme}>
+    <Button
+      variant="secondary"
+      onClick={toggleTheme}
+      aria-label={`${t("buttons.toggleTheme")} (${t(`theme.${theme}`)})`}
+    >
       {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-      {t("buttons.toggleTheme")} ({t(`theme.${theme}`)})
+      <span className="hidden sm:inline">
+        {t("buttons.toggleTheme")} ({t(`theme.${theme}`)})
+      </span>
     </Button>
   );
 }

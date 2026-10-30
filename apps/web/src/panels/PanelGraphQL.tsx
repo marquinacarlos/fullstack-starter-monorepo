@@ -60,7 +60,7 @@ export function PanelGraphQL() {
         {items.isSuccess && items.data.length === 0 && (
           <p className="text-sm text-muted-foreground">{t("graphql.empty")}</p>
         )}
-        <ul className="space-y-1 text-sm">
+        <ul className="space-y-1 text-sm wrap-anywhere">
           {items.data?.map((item) => (
             <li key={item.id}>
               #{item.id} {item.name}

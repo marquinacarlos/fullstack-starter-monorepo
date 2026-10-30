@@ -46,7 +46,7 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider>
           <Header />
-          <main className="mx-auto max-w-5xl px-page py-10">{children}</main>
+          <main className="mx-auto max-w-5xl px-4 py-8 sm:px-page sm:py-10">{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

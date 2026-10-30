@@ -55,14 +55,14 @@ export function PanelWebSocket() {
         {messages.length === 0 && (
           <p className="text-sm text-muted-foreground">{t("websocket.waiting")}</p>
         )}
-        <ul className="space-y-1 font-mono text-xs">
+        <ul className="space-y-1 font-mono text-xs wrap-anywhere">
           {messages.map((message, index) => (
             <li key={`${messages.length - index}-${message}`}>{message}</li>
           ))}
         </ul>
 
         <form
-          className="flex gap-2"
+          className="flex flex-col gap-2 sm:flex-row"
           onSubmit={(event) => {
             event.preventDefault();
             if (!text.trim()) return;

@@ -13,8 +13,8 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-2">
-      <Languages size={16} aria-label={t("language")} />
+    <div className="flex items-center gap-1 sm:gap-2">
+      <Languages size={16} className="hidden sm:block" aria-label={t("language")} />
       {routing.locales.map((code) => (
         <button
           key={code}
@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
             }
             router.replace(pathname, { locale: code });
           }}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
+          className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg px-3 text-sm font-medium sm:min-h-0 sm:min-w-0 sm:py-1.5 ${
             code === locale ? "bg-primary text-primary-foreground" : "hover:bg-muted"
           }`}
         >

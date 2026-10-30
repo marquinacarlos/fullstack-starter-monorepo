@@ -19,9 +19,9 @@ export default function DownloadPage({ params }: { params: Promise<{ locale: str
 
   return (
     <>
-      <h1 className="text-3xl font-bold">{t("title")}</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">{t("title")}</h1>
       <p className="mt-2 mb-6 text-muted-foreground">{t("subtitle")}</p>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {platforms.map(({ key, icon }) => (
           <section key={key} className="rounded-card border border-border bg-card p-4">
             <div className="mb-3 flex items-center gap-2 font-semibold">
@@ -29,7 +29,7 @@ export default function DownloadPage({ params }: { params: Promise<{ locale: str
             </div>
             <a
               href={RELEASES_URL}
-              className="inline-block rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground"
+              className="inline-flex min-h-11 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground sm:min-h-0 sm:px-3 sm:py-1.5"
             >
               {t("button")}
             </a>

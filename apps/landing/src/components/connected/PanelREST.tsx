@@ -55,7 +55,7 @@ export function PanelREST() {
         {items.isSuccess && items.data.length === 0 && (
           <p className="text-sm text-muted-foreground">{t("rest.empty")}</p>
         )}
-        <ul className="space-y-1 text-sm">
+        <ul className="space-y-1 text-sm wrap-anywhere">
           {items.data?.map((item) => (
             <li key={item.id}>
               #{item.id} {item.name}
@@ -64,7 +64,7 @@ export function PanelREST() {
         </ul>
 
         <form
-          className="flex gap-2"
+          className="flex flex-col gap-2 sm:flex-row"
           onSubmit={(event) => {
             event.preventDefault();
             if (name.trim()) addItem.mutate(name.trim());
