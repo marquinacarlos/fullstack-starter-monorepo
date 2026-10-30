@@ -2,6 +2,16 @@
 
 Goal: clone, rename a few values, remove what you do not need, and start building.
 
+## 0. Install the tools (once per machine)
+
+The repo manages its own dependencies, but not these tools. Install them first:
+
+- Node.js >= 20.19 and pnpm (the repo pins the `packageManager` version)
+- Python >= 3.12 and [uv](https://docs.astral.sh/uv/)
+- Docker (optional: only if you want PostgreSQL)
+
+Details and versions: [SETUP.md](SETUP.md#requirements).
+
 ## 1. Create the repo
 
 - On GitHub: **Use this template** (enable it once in Settings → Template repository), or
