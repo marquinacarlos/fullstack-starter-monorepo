@@ -30,6 +30,9 @@ nsis:
 
 linux:
   icon: build/icon.png
+  # Required on Linux: by default the executable is named after the package ("@repo/desktop"),
+  # and "@" and "/" are not allowed. Use letters, digits and hyphens. Change it per project.
+  executableName: fullstack-starter
   category: Utility
   target:
     - AppImage

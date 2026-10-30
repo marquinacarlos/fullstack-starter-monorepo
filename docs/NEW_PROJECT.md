@@ -22,19 +22,19 @@ Note: the script is called `bootstrap` because `pnpm setup` is a built-in pnpm c
 
 Search results of the template placeholders. Change only what applies to your project.
 
-| File                                                 | Value                                                                | Change to                                                                          |
-| ---------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `package.json`                                       | `"name": "fullstack-starter-monorepo"`                               | Your project name                                                                  |
-| `README.md`                                          | Title and description                                                | Your project                                                                       |
-| `apps/web/index.html`                                | `<title>Fullstack Starter</title>`                                   | Your app name                                                                      |
-| `apps/desktop/index.html`                            | `<title>Fullstack Starter Desktop</title>`                           | Your app name                                                                      |
-| `apps/web/src/i18n/locales/{en,es}/common.json`      | `appName`                                                            | Your app name                                                                      |
-| `apps/desktop/src/i18n/locales/{en,es}/common.json`  | `appName`                                                            | Your app name                                                                      |
-| `apps/landing/messages/{en,es}/common.json`          | `appName`                                                            | Your app name                                                                      |
-| `apps/desktop/electron-builder.yml`                  | `appId`, `productName`, `copyright`, `publish.owner`, `publish.repo` | Your values. `appId` cannot change after your first release                        |
-| `apps/desktop/package.json`                          | `description`, `author`                                              | Your values                                                                        |
-| `apps/landing/src/app/[locale]/download/page.tsx`    | `RELEASES_URL` (`OWNER/REPO`)                                        | Your GitHub releases URL                                                           |
-| `docker-compose.yml` and `apps/api/.env.development` | `POSTGRES_*` defaults and `POSTGRES_URL` (`app`)                     | Your database name and user (only if you keep PostgreSQL). Keep both files in sync |
+| File                                                 | Value                                                                                        | Change to                                                                          |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `package.json`                                       | `"name": "fullstack-starter-monorepo"`                                                       | Your project name                                                                  |
+| `README.md`                                          | Title and description                                                                        | Your project                                                                       |
+| `apps/web/index.html`                                | `<title>Fullstack Starter</title>`                                                           | Your app name                                                                      |
+| `apps/desktop/index.html`                            | `<title>Fullstack Starter Desktop</title>`                                                   | Your app name                                                                      |
+| `apps/web/src/i18n/locales/{en,es}/common.json`      | `appName`                                                                                    | Your app name                                                                      |
+| `apps/desktop/src/i18n/locales/{en,es}/common.json`  | `appName`                                                                                    | Your app name                                                                      |
+| `apps/landing/messages/{en,es}/common.json`          | `appName`                                                                                    | Your app name                                                                      |
+| `apps/desktop/electron-builder.yml`                  | `appId`, `productName`, `copyright`, `linux.executableName`, `publish.owner`, `publish.repo` | Your values. `appId` cannot change after your first release                        |
+| `apps/desktop/package.json`                          | `description`, `author`                                                                      | Your values                                                                        |
+| `apps/landing/src/app/[locale]/download/page.tsx`    | `RELEASES_URL` (`OWNER/REPO`)                                                                | Your GitHub releases URL                                                           |
+| `docker-compose.yml` and `apps/api/.env.development` | `POSTGRES_*` defaults and `POSTGRES_URL` (`app`)                                             | Your database name and user (only if you keep PostgreSQL). Keep both files in sync |
 
 **Production values** (when you deploy): in `apps/api`, `apps/web`, `apps/desktop` and `apps/landing`, copy `.env.production.example` to `.env.production` (git-ignored) with your real URLs, or set the variables in your hosting or CI. Never commit them. See [SETUP.md](SETUP.md#environment-variables).
 

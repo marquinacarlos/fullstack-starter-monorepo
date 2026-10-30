@@ -25,7 +25,7 @@ Icons: `apps/desktop/build/icon.png` (placeholder, 1024x1024). Replace it. elect
 
 ## Before the first release
 
-1. Replace `appId`, `productName`, `copyright` and the `author` in `package.json`.
+1. Replace `appId`, `productName`, `copyright`, `linux.executableName` (letters, digits and hyphens only) and the `author` in `package.json`.
 2. Replace `publish.owner` and `publish.repo` with your GitHub repo.
 3. Replace the placeholder icon.
 4. Create `apps/desktop/.env.production` (copy `.env.production.example`) with your production API URL, or set `VITE_API_URL` in CI. It is baked into the bundle and is public.
