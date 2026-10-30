@@ -16,6 +16,10 @@ Run them from the repo root with Turborepo (`pnpm dev`) or here with `pnpm`:
 
 Install Python dependencies with `uv sync`.
 
+## Environment
+
+Files in this folder: `.env.development` (committed, safe defaults), `.env.production.example` (template), `.env.production` and `.env.local` (git-ignored). `APP_ENV` picks the file (default `development`); real environment variables always win. `DATABASE_URL` and `CORS_ORIGINS` are required and have no defaults, so a missing value stops the API at startup. Full guide: [docs/SETUP.md](../../docs/SETUP.md#environment-variables).
+
 ## Endpoints
 
 | Channel | URL |

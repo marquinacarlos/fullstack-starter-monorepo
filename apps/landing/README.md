@@ -12,3 +12,5 @@ Marketing / download site. App Router + next-intl, built as a **static export** 
 It only uses `@repo/tailwind-config` from the shared packages. Docs: [I18N](docs/I18N.md).
 
 Update the download links in `src/app/[locale]/download/page.tsx` (`RELEASES_URL`).
+
+Env: no variables are needed today. If you need one, use `NEXT_PUBLIC_*` in `.env.development` (dev) or `.env.production` (build). It is public and baked into the static files.

@@ -1,6 +1,5 @@
 // First-run setup for a fresh clone. Safe to run again: every step is idempotent.
 import { spawnSync } from "node:child_process";
-import { copyFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -34,15 +33,6 @@ if (!succeeds("uv", ["--version"])) {
 }
 if (!succeeds("docker", ["info"])) {
   fail("Docker is not running. Start Docker Desktop and run again.");
-}
-
-log(".env");
-const envPath = join(root, ".env");
-if (existsSync(envPath)) {
-  process.stdout.write(".env already exists, keeping it\n");
-} else {
-  copyFileSync(join(root, ".env.example"), envPath);
-  process.stdout.write("created .env from .env.example\n");
 }
 
 log("JavaScript dependencies (pnpm install)");

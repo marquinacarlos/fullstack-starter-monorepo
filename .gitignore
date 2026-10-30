@@ -9,9 +9,13 @@ next-env.d.ts
 *.tsbuildinfo
 coverage/
 
-.env
-.env.*
-!.env.example
+# Env files: everything is ignored by default. Only these are committed:
+#   .env.development        safe local defaults (NEVER put real secrets in it)
+#   .env.*.example          templates with placeholder values
+# Real values live in .env.production, .env.local, ... (ignored) or in your hosting/CI.
+.env*
+!.env.development
+!.env.*.example
 
 # Python
 __pycache__/

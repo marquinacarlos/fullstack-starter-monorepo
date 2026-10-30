@@ -14,5 +14,5 @@ Rules and removal steps are the same as in [apps/web/docs/PANELS.md](../../web/d
 ## Desktop differences
 
 - The router is `HashRouter` (a packaged app loads `file://`).
-- `VITE_API_URL` is read at build time. A packaged app calls that URL, so set it before `pnpm dist:desktop`.
+- `VITE_API_URL` is read at build time: from `.env.development` in dev and from `.env.production` for `pnpm dist:desktop`. A packaged app calls that URL, so create `.env.production` first.
 - The renderer is sandboxed: it has no Node.js. All native access goes through `src/preload.ts`.

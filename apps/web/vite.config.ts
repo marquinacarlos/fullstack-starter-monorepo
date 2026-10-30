@@ -4,8 +4,6 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // The shared .env (VITE_API_URL) lives at the repo root.
-  envDir: "../..",
   server: { port: 5173, strictPort: true },
   // lucide + zod + react-query land just above the 500 kB default; not worth code-splitting here.
   build: { chunkSizeWarningLimit: 700 },

@@ -54,6 +54,14 @@ The desktop renderer is a copy of the web UI. We accept the duplication because:
 
 PostgreSQL in Docker Compose for development only. Alembic owns the schema. Tests use in-memory SQLite through a dependency override, so `pytest` needs no Docker. The model uses only portable types for this reason. If you add Postgres-only types (JSONB, arrays), tests need a real Postgres.
 
+## Environment variables
+
+- **One set of files per app, in the app folder.** The API has secrets and the frontends are public, so they must not share a file. A single root `.env` hid that difference and mixed development with production values.
+- **Development is committed, production is not.** `.env.development` has safe `localhost` values, so `pnpm dev` needs no setup. Real values go in ignored files (`.env.production`, `.env.local`) or in the hosting/CI. The `.gitignore` ignores every `.env*` by default and allows only the safe ones.
+- **No silent defaults.** The API requires `DATABASE_URL` and `CORS_ORIGINS`, and `@repo/lib` throws if `VITE_API_URL` is missing. A production build must never fall back to `localhost`.
+- **Tests do not read env files.** `apps/api/tests/__init__.py` sets safe values first.
+- **Turborepo** treats `.env*` as build inputs. Without it, editing `.env.production` could reuse a cached build with the old URL (we hit this while testing).
+
 ## Not included on purpose
 
 Authentication (`core/security.py` is a placeholder), E2E/component tests, production deployment, an ORM-agnostic layer. Add them when a project needs them.

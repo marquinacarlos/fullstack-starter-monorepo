@@ -8,7 +8,7 @@ from app.core.config import settings
 from app.db.base import Base
 
 config = context.config
-# The URL comes from the app settings (.env), not from alembic.ini.
+# The URL comes from the app settings (env files / env vars), not from alembic.ini.
 config.set_main_option("sqlalchemy.url", settings.database_url.replace("%", "%%"))
 
 if config.config_file_name is not None:

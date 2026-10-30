@@ -1,4 +1,7 @@
 # Development only. Production database/hosting is out of scope for this template.
+# The defaults below match apps/api/.env.development, so no .env file is needed.
+# To change POSTGRES_*, put them in a root .env (git-ignored) and update DATABASE_URL
+# in apps/api/.env.local.
 services:
   db:
     image: postgres:17-alpine

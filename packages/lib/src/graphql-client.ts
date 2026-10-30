@@ -1,4 +1,4 @@
-const baseUrl: string = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+import { API_URL } from "./api-url";
 
 interface GraphQLResponse<T> {
   data?: T;
@@ -10,7 +10,7 @@ export async function graphqlRequest<T>(
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<T> {
-  const response = await fetch(`${baseUrl}/graphql`, {
+  const response = await fetch(`${API_URL}/graphql`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query, variables }),

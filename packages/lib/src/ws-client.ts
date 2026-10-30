@@ -1,4 +1,4 @@
-const baseUrl: string = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+import { API_URL } from "./api-url";
 
 export interface WsHandlers {
   onOpen?: () => void;
@@ -14,7 +14,7 @@ export interface WsConnection {
 
 /** http://host -> ws://host, https://host -> wss://host */
 export function wsUrl(path = "/ws"): string {
-  return baseUrl.replace(/^http/, "ws") + path;
+  return API_URL.replace(/^http/, "ws") + path;
 }
 
 /** Opens a WebSocket to {API}/ws. The caller owns the lifecycle: call close() on cleanup. */

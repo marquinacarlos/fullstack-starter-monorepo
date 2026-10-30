@@ -8,7 +8,7 @@
 
 | Command                            | What it does                                           |
 | ---------------------------------- | ------------------------------------------------------ |
-| `pnpm bootstrap`                   | First run: `.env`, installs, Postgres, migrations      |
+| `pnpm bootstrap`                   | First run: installs, Postgres, migrations              |
 | `pnpm dev`                         | Runs `dev` in every app (api, web, desktop, landing)   |
 | `pnpm check`                       | Format check + lint + test + build, API included       |
 | `pnpm build`                       | Builds everything (Electron is compiled, not packaged) |
@@ -26,14 +26,14 @@
 | `lint`  | `dependsOn: ["^lint"]`                                        |                                            |
 | `test`  | `dependsOn: ["^build"]`                                       |                                            |
 
-`globalEnv` lists env vars that change the build (`VITE_API_URL`). `globalDependencies` includes `.env`.
+`globalEnv` lists env vars that change the build (`VITE_API_URL`). The `build` task has `.env*` as inputs, so editing an env file (even an ignored one like `.env.production`) invalidates the cache. `globalPassThroughEnv` lets the API see `APP_ENV`, `DATABASE_URL` and `CORS_ORIGINS` (Turborepo hides undeclared variables).
 
 ## Add an app
 
 1. Create `apps/<name>/package.json` with `"name": "@repo/<name>"` and scripts `dev`, `build`, `lint`, `test`.
 2. Use `catalog:` for shared versions and `workspace:*` for `@repo/*` packages.
 3. If it uses Tailwind, copy the CSS header from `apps/web/src/index.css`.
-4. Pick a free port and add its origin to `CORS_ORIGINS` (`.env.example`) if it calls the API.
+4. Pick a free port and add its origin to `CORS_ORIGINS` (`apps/api/.env.development` and `.env.production.example`) if it calls the API.
 5. Run `pnpm install`. Add a README and `docs/`.
 6. Add it to CI if it needs a special job.
 
@@ -48,7 +48,7 @@
 1. Delete the folder.
 2. Remove `workspace:*` references to it in other `package.json` files.
 3. Run `pnpm install`.
-4. Clean docs, CI and `.env.example` mentions. See the matrix in [AI_CONTEXT.md](AI_CONTEXT.md).
+4. Clean docs, CI and env file mentions. See the matrix in [AI_CONTEXT.md](AI_CONTEXT.md).
 
 ## Dependencies and install scripts
 

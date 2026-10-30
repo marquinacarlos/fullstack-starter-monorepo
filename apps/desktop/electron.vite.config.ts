@@ -14,7 +14,6 @@ export default defineConfig({
   renderer: {
     // index.html lives at the app root (not in src/renderer) to keep src/ flat.
     root: ".",
-    envDir: resolve(__dirname, "../.."),
     plugins: [react(), tailwindcss()],
     server: { port: 5174, strictPort: true },
     build: {

@@ -5,7 +5,7 @@ apps/api/
 ├── app/
 │   ├── main.py              creates the app, mounts middlewares and channels
 │   ├── core/
-│   │   ├── config.py        pydantic-settings (DATABASE_URL, CORS_ORIGINS)
+│   │   ├── config.py        pydantic-settings; env file chosen by APP_ENV
 │   │   ├── middlewares.py   CORS + RequestID + Logging
 │   │   └── security.py      placeholder (no auth)
 │   ├── db/
@@ -21,6 +21,8 @@ apps/api/
 ├── tests/                   pytest: conftest.py, test_health, test_items, test_graphql
 ├── alembic/                 migrations (versions/0001_create_items.py)
 ├── alembic.ini
+├── .env.development         safe local defaults (committed)
+├── .env.production.example  template for production values
 ├── pyproject.toml           dependencies (managed with uv)
 ├── Dockerfile
 └── docs/
