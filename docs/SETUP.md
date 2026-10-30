@@ -4,11 +4,11 @@
 
 - Node.js >= 20.19 and pnpm >= 9 (the repo pins `packageManager`)
 - Python >= 3.12 and [uv](https://docs.astral.sh/uv/)
-- Docker (for PostgreSQL)
+- Docker (optional: only if you want PostgreSQL)
 
 ## First run
 
-Fast way (needs Docker running and `uv` installed):
+Fast way (needs `uv`; Docker is **not** needed):
 
 ```bash
 pnpm bootstrap
@@ -20,7 +20,6 @@ pnpm dev
 ```bash
 pnpm install
 (cd apps/api && uv sync)
-docker compose up -d db
 pnpm --filter @repo/api migrate
 pnpm dev
 ```
@@ -44,7 +43,7 @@ If something shows an error, see [Troubleshooting](#troubleshooting).
 docker compose --profile api up -d
 ```
 
-This builds `apps/api/Dockerfile`, applies migrations and serves on port 8000.
+This builds `apps/api/Dockerfile`, starts PostgreSQL, applies its migrations and serves on port 8000 (in the container only PostgreSQL is enabled).
 
 ## Environment variables
 
@@ -61,17 +60,18 @@ Production values can also come from your hosting or CI as real environment vari
 
 | Variable                    | App            | Notes                                                                                                                          |
 | --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `DATABASE_URL`              | api            | Required, no default. Dev value matches `docker-compose.yml`                                                                   |
+| `SQLITE_URL`                | api            | Optional. Dev: `sqlite:///./dev.db` (on). Empty = disabled                                                                     |
+| `POSTGRES_URL`              | api            | Optional. Dev matches `docker-compose.yml`. Empty = disabled                                                                   |
 | `CORS_ORIGINS`              | api            | Required, no default. Comma-separated browser origins                                                                          |
 | `APP_ENV`                   | api            | Picks the file: `.env.<APP_ENV>`. Default `development`                                                                        |
 | `VITE_API_URL`              | web, desktop   | **Public** (inside the bundle). Dev: `.env.development`. Build: `.env.production`                                              |
-| `POSTGRES_USER/PASSWORD/DB` | docker-compose | Optional. Defaults to `app`. To change them use a root `.env` (git-ignored) and update `DATABASE_URL` in `apps/api/.env.local` |
+| `POSTGRES_USER/PASSWORD/DB` | docker-compose | Optional. Defaults to `app`. To change them use a root `.env` (git-ignored) and update `POSTGRES_URL` in `apps/api/.env.local` |
 
 Landing needs no variables today. If it does, use `NEXT_PUBLIC_*` in `apps/landing/.env.development` (also public).
 
 How files are chosen:
 
-- **API**: real env vars > `.env.local` > `.env.<APP_ENV>`. A missing required value stops the API at startup.
+- **API**: real env vars > `.env.local` > `.env.<APP_ENV>`. `CORS_ORIGINS` is required and stops the API at startup if missing. The database URLs are optional: empty means that database is off (see [DATABASES.md](DATABASES.md)).
 - **Web and desktop (Vite)**: `pnpm dev` uses `.env.development`; `pnpm build` uses `.env.production`. Personal `.env.local` applies to both. If `VITE_API_URL` is missing, the app stops with a clear error instead of calling `localhost`.
 - **Turborepo**: `.env*` files are build inputs, so editing one (even an ignored one) rebuilds instead of reusing the cache.
 
@@ -90,7 +90,8 @@ pnpm format          # Prettier for TS/JS/CSS/MD/JSON
 
 ## Troubleshooting
 
-- **"Could not load items. Is the database running?"** (REST or GraphQL panel) and a `WARNING ... Cannot reach the database` line in the API log: PostgreSQL is not running. Run `pnpm bootstrap` (first time) or `docker compose up -d db`. The `REST /health`, `GraphQL health` and WebSocket panels keep working without the database, on purpose: each panel proves its own channel.
+- **"Could not load items"** (REST or GraphQL panel): the demo items live in SQLite. Open the **Databases** panel (or `GET /health/databases`). If SQLite shows "disabled", set `SQLITE_URL` again. If it shows "not available", check the file path and permissions. Everything else keeps working on purpose: each panel proves its own channel.
+- **PostgreSQL shows "not available"**: it is optional and not running. Start it with `pnpm db:up`. The panel updates by itself.
 - **`REST /health: error`** or **`WebSocket: disconnected`**: the API itself is not running. Look at the `@repo/api:dev` lines in the terminal.
 - **The terminal prints the same error again and again**: read the first one. Usually it is the database (above) or a port already in use.
 

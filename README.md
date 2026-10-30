@@ -2,13 +2,13 @@
 
 A reusable template for full-stack projects, built as a **pnpm + Turborepo** monorepo.
 
-| Part    | Path           | Stack                                                     |
-| ------- | -------------- | --------------------------------------------------------- |
-| API     | `apps/api`     | Python, FastAPI, PostgreSQL, REST + GraphQL + WebSocket   |
-| Web     | `apps/web`     | React, Vite, React Router                                 |
-| Desktop | `apps/desktop` | Electron, React, Vite, electron-builder, electron-updater |
-| Landing | `apps/landing` | Next.js (App Router), next-intl                           |
-| Shared  | `packages/*`   | `@repo/ui`, `@repo/lib`, `@repo/tailwind-config`          |
+| Part    | Path           | Stack                                                                       |
+| ------- | -------------- | --------------------------------------------------------------------------- |
+| API     | `apps/api`     | Python, FastAPI, REST + GraphQL + WebSocket, optional SQLite and PostgreSQL |
+| Web     | `apps/web`     | React, Vite, React Router                                                   |
+| Desktop | `apps/desktop` | Electron, React, Vite, electron-builder, electron-updater                   |
+| Landing | `apps/landing` | Next.js (App Router), next-intl                                             |
+| Shared  | `packages/*`   | `@repo/ui`, `@repo/lib`, `@repo/tailwind-config`                            |
 
 Every library and every channel included has its own visible proof on screen when you run `pnpm dev`. If your project does not need something, remove it.
 

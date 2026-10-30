@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 // Each panel is self-contained. To remove a channel, delete its panel and its line here.
+import { PanelDatabases } from "../panels/PanelDatabases";
 import { PanelGraphQL } from "../panels/PanelGraphQL";
 import { PanelREST } from "../panels/PanelREST";
 import { PanelWebSocket } from "../panels/PanelWebSocket";
@@ -17,7 +18,10 @@ export function Home() {
         <PanelGraphQL />
         <PanelWebSocket />
       </div>
-      <UpdatesStatus />
+      <div className="mt-4 grid gap-4 md:grid-cols-3">
+        <PanelDatabases />
+        <UpdatesStatus />
+      </div>
     </>
   );
 }

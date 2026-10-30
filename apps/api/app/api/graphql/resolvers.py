@@ -2,10 +2,9 @@ from datetime import datetime
 
 import strawberry
 from sqlalchemy import select
-from sqlalchemy.exc import OperationalError
 
-from app.core.errors import DatabaseUnavailable
-from app.models.item import Item
+from app.db.databases import sqlite_db
+from app.models.sqlite import Item
 
 
 @strawberry.type
@@ -23,12 +22,10 @@ class Query:
         return "ok"
 
     @strawberry.field
-    def items(self, info: strawberry.Info) -> list[ItemType]:
-        db = info.context["db"]
-        try:
+    def items(self) -> list[ItemType]:
+        # The resolver opens its own session, so `health` never touches a database.
+        with sqlite_db.session() as db:
             rows = list(db.scalars(select(Item).order_by(Item.id)))
-        except OperationalError as exc:
-            raise DatabaseUnavailable() from exc
         return [
             ItemType(id=r.id, name=r.name, description=r.description, created_at=r.created_at)
             for r in rows

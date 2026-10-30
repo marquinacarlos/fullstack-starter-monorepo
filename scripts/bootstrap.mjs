@@ -31,9 +31,6 @@ log("Checking tools");
 if (!succeeds("uv", ["--version"])) {
   fail("uv is not installed. Install it from https://docs.astral.sh/uv/ and run again.");
 }
-if (!succeeds("docker", ["info"])) {
-  fail("Docker is not running. Start Docker Desktop and run again.");
-}
 
 log("JavaScript dependencies (pnpm install)");
 run("pnpm", ["install"]);
@@ -41,10 +38,8 @@ run("pnpm", ["install"]);
 log("Python dependencies (uv sync)");
 run("uv", ["sync"], join(root, "apps", "api"));
 
-log("PostgreSQL (docker compose up)");
-run("docker", ["compose", "up", "-d", "--wait", "db"]);
-
-log("Database migrations (alembic)");
+log("Databases (migrations for every enabled and reachable database)");
 run("pnpm", ["--filter", "@repo/api", "migrate"]);
 
 log("Done. Start everything with: pnpm dev");
+process.stdout.write("PostgreSQL is optional. To use it: pnpm db:up (see docs/DATABASES.md)\n");

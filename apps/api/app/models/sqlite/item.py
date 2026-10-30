@@ -3,10 +3,11 @@ from datetime import datetime
 from sqlalchemy import DateTime, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from app.db.base import Base
+from app.db.databases import sqlite_db
 
 
-class Item(Base):
+# The demo table lives in the SQLite database. See docs/DATABASES.md to move it elsewhere.
+class Item(sqlite_db.Base):
     __tablename__ = "items"
 
     id: Mapped[int] = mapped_column(primary_key=True)

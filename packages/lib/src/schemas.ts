@@ -20,3 +20,14 @@ export const ItemCreateSchema = z.object({
   description: z.string().nullish(),
 });
 export type ItemCreate = z.infer<typeof ItemCreateSchema>;
+
+export const DatabaseStatusSchema = z.object({
+  name: z.string(),
+  label: z.string(),
+  status: z.enum(["connected", "disabled", "unavailable"]),
+});
+export type DatabaseStatus = z.infer<typeof DatabaseStatusSchema>;
+
+export const DatabasesResponseSchema = z.object({
+  databases: z.array(DatabaseStatusSchema),
+});

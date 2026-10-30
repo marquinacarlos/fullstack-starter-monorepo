@@ -50,15 +50,21 @@ The desktop renderer is a copy of the web UI. We accept the duplication because:
 - The renderer is sandboxed (`contextIsolation`, no Node). Only `window.updates` is exposed.
 - Renderer dependencies are `devDependencies`: Vite bundles them, so the installer only ships `electron-updater`.
 
-## Database
+## Databases
 
-PostgreSQL in Docker Compose for development only. Alembic owns the schema. Tests use in-memory SQLite through a dependency override, so `pytest` needs no Docker. The model uses only portable types for this reason. If you add Postgres-only types (JSONB, arrays), tests need a real Postgres.
+The API can use several databases at the same time, and none of them is required.
+
+- **One `Database` object per database** (`apps/api/app/db/databases.py`). Each has its own engine, session, declarative `Base`, models package and Alembic history. They never share tables or migrations.
+- **Optional by design.** A database is on when its URL is set, off when it is empty. An off database is never contacted, and a stopped one does not block startup. Routes that need it answer `503` with a clear message.
+- **SQLite on, PostgreSQL ready.** SQLite is a local file, so the demo works without Docker. PostgreSQL is configured and verified, and only needs `pnpm db:up`.
+- **A model lives in one database.** There are no transactions, joins or foreign keys across databases. See [DATABASES.md](DATABASES.md).
+- **Tests use in-memory SQLite** through the same `Database` class, so `pytest` needs no Docker and no files. The models use portable types only.
 
 ## Environment variables
 
 - **One set of files per app, in the app folder.** The API has secrets and the frontends are public, so they must not share a file. A single root `.env` hid that difference and mixed development with production values.
 - **Development is committed, production is not.** `.env.development` has safe `localhost` values, so `pnpm dev` needs no setup. Real values go in ignored files (`.env.production`, `.env.local`) or in the hosting/CI. The `.gitignore` ignores every `.env*` by default and allows only the safe ones.
-- **No silent defaults.** The API requires `DATABASE_URL` and `CORS_ORIGINS`, and `@repo/lib` throws if `VITE_API_URL` is missing. A production build must never fall back to `localhost`.
+- **No silent defaults for what must exist.** The API requires `CORS_ORIGINS`, and `@repo/lib` throws if `VITE_API_URL` is missing. A production build must never fall back to `localhost`.
 - **Tests do not read env files.** `apps/api/tests/__init__.py` sets safe values first.
 - **Turborepo** treats `.env*` as build inputs. Without it, editing `.env.production` could reuse a cached build with the old URL (we hit this while testing).
 

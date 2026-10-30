@@ -1,6 +1,7 @@
-# Development only. Production database/hosting is out of scope for this template.
-# The defaults below match apps/api/.env.development, so no .env file is needed.
-# To change POSTGRES_*, put them in a root .env (git-ignored) and update DATABASE_URL
+# PostgreSQL is OPTIONAL: the monorepo runs without it (SQLite is the default demo database).
+# Start it with `pnpm db:up`. Development only; production hosting is out of scope.
+# The defaults below match POSTGRES_URL in apps/api/.env.development, so no .env file is needed.
+# To change POSTGRES_*, put them in a root .env (git-ignored) and update POSTGRES_URL
 # in apps/api/.env.local.
 services:
   db:
@@ -25,7 +26,8 @@ services:
     profiles: ["api"]
     build: ./apps/api
     environment:
-      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@db:5432/${POSTGRES_DB:-app}
+      # Only PostgreSQL in the container: SQLITE_URL is not set, so SQLite stays disabled.
+      POSTGRES_URL: postgresql+psycopg://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@db:5432/${POSTGRES_DB:-app}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:5174,http://localhost:3000}
     ports:
       - "8000:8000"

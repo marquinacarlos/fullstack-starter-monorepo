@@ -10,6 +10,21 @@ Liveness probe. Does **not** touch the database.
 { "status": "ok" }
 ```
 
+## `GET /health/databases`
+
+State of each database. Always `200`: a disabled or stopped database is a state to report, not an API failure.
+
+```json
+{
+  "databases": [
+    { "name": "sqlite", "label": "SQLite", "status": "connected" },
+    { "name": "postgres", "label": "PostgreSQL", "status": "unavailable" }
+  ]
+}
+```
+
+`status` is `connected`, `disabled` (URL empty) or `unavailable` (URL set, server not answering). See [docs/DATABASES.md](../../../docs/DATABASES.md).
+
 ## `GET /api/items`
 
 Returns all items ordered by `id`. Uses the database.
@@ -40,10 +55,10 @@ Every response has `X-Request-ID`. If the request sends one, the API reuses it.
 
 ## Errors
 
-If the database is not reachable, endpoints that use it (`/api/items`) answer `503` with a clear message instead of a 500 and a long traceback:
+If the database that holds the items (SQLite) is disabled or not reachable, `/api/items` answers `503` with a clear message, not a 500 and a long traceback:
 
 ```json
-{ "detail": "Database unavailable. Start it with `docker compose up -d db` (or run `pnpm bootstrap`)." }
+{ "detail": "Database 'sqlite' is disabled. Set SQLITE_URL to enable it." }
 ```
 
-The API logs one warning line per request, and one at startup (`Cannot reach the database`). `/health` and the WebSocket do not need the database. In GraphQL, the `items` query returns the same message in `errors`, while `health` keeps working.
+The API logs one warning line per request. At startup it logs a summary (`Databases: sqlite=connected, postgres=disabled`). `/health` and the WebSocket never use a database. In GraphQL, the `items` query returns the same message in `errors`, while `health` keeps working.

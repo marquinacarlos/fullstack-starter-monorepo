@@ -34,7 +34,7 @@ export function UpdatesStatus() {
   })();
 
   return (
-    <Card className="mt-4">
+    <Card>
       <CardHeader>
         <h2 className="flex items-center gap-2 font-semibold">
           <Download size={16} /> {t("updates.title")}

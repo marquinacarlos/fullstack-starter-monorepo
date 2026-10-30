@@ -8,7 +8,9 @@
 
 | Command                            | What it does                                           |
 | ---------------------------------- | ------------------------------------------------------ |
-| `pnpm bootstrap`                   | First run: installs, Postgres, migrations              |
+| `pnpm bootstrap`                   | First run: installs, migrations (no Docker needed)     |
+| `pnpm db:up` / `pnpm db:down`      | Start / stop the optional PostgreSQL (Docker)          |
+| `pnpm migrate`                     | Upgrades every enabled and reachable database          |
 | `pnpm dev`                         | Runs `dev` in every app (api, web, desktop, landing)   |
 | `pnpm check`                       | Format check + lint + test + build, API included       |
 | `pnpm build`                       | Builds everything (Electron is compiled, not packaged) |
@@ -26,7 +28,7 @@
 | `lint`  | `dependsOn: ["^lint"]`                                        |                                            |
 | `test`  | `dependsOn: ["^build"]`                                       |                                            |
 
-`globalEnv` lists env vars that change the build (`VITE_API_URL`). The `build` task has `.env*` as inputs, so editing an env file (even an ignored one like `.env.production`) invalidates the cache. `globalPassThroughEnv` lets the API see `APP_ENV`, `DATABASE_URL` and `CORS_ORIGINS` (Turborepo hides undeclared variables).
+`globalEnv` lists env vars that change the build (`VITE_API_URL`). The `build` task has `.env*` as inputs, so editing an env file (even an ignored one like `.env.production`) invalidates the cache. `globalPassThroughEnv` lets the API see `APP_ENV`, `SQLITE_URL`, `POSTGRES_URL` and `CORS_ORIGINS` (Turborepo hides undeclared variables).
 
 ## Add an app
 

@@ -39,5 +39,6 @@ __pycache__/
 .idea/
 Thumbs.db
 *.sqlite
+*.db
 *.sqlite3
 .claude/settings.local.json

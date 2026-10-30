@@ -12,5 +12,6 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY . .
 
 EXPOSE 8000
-# Apply migrations, then start. Fine for development; use a release step in production.
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+# Apply migrations (only for databases that are enabled and reachable), then start.
+# Fine for development; use a release step in production.
+CMD ["sh", "-c", "python -m app.db.migrate && uvicorn app.main:app --host 0.0.0.0 --port 8000"]

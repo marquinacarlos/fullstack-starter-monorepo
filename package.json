@@ -18,6 +18,9 @@
     "format:check": "prettier --check .",
     "dist:desktop": "pnpm --filter @repo/desktop dist:desktop",
     "bootstrap": "node scripts/bootstrap.mjs",
+    "db:up": "docker compose up -d --wait db",
+    "db:down": "docker compose down",
+    "migrate": "pnpm --filter @repo/api migrate",
     "check": "pnpm format:check && turbo run lint test build"
   },
   "devDependencies": {

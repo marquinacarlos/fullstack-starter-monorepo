@@ -11,8 +11,8 @@
     "empty": "No items yet",
     "placeholder": "New item name",
     "add": "Add item (POST)",
-    "itemsError": "Could not load items. Is the database running? (docker compose up -d db)",
-    "saveError": "Could not save the item. Is the database running?"
+    "itemsError": "Could not load items. They live in the SQLite database: check the Databases panel.",
+    "saveError": "Could not save the item. Check the Databases panel."
   },
   "graphql": {
     "title": "GraphQL",
@@ -22,7 +22,7 @@
     "itemsTitle": "Items (GraphQL query)",
     "empty": "No items yet",
     "refresh": "Refresh",
-    "itemsError": "Could not load items. Is the database running? (docker compose up -d db)"
+    "itemsError": "Could not load items. They live in the SQLite database: check the Databases panel."
   },
   "websocket": {
     "title": "WebSocket",
@@ -33,5 +33,16 @@
     "waiting": "Waiting for messages...",
     "placeholder": "Type a message",
     "send": "Send (echo)"
+  },
+  "databases": {
+    "title": "Databases",
+    "checking": "Databases: checking...",
+    "error": "Databases: cannot reach the API",
+    "connected": "{{name}}: connected",
+    "disabled": "{{name}}: disabled",
+    "unavailable": "{{name}}: not available",
+    "unavailableHint": "Optional. It is not running (PostgreSQL: pnpm db:up).",
+    "none": "No databases in this project.",
+    "note": "Each database is optional. See docs/DATABASES.md."
   }
 }
