@@ -1,0 +1,11 @@
+{
+  "title": "Descargar",
+  "subtitle": "Elige el instalador para tu sistema.",
+  "button": "Descargar",
+  "note": "Estos enlaces son de ejemplo. Apúntalos a tus releases de GitHub.",
+  "platforms": {
+    "windows": "Windows (instalador .exe)",
+    "macos": "macOS (.dmg)",
+    "linux": "Linux (AppImage)"
+  }
+}

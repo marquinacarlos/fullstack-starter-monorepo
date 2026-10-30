@@ -1,0 +1,21 @@
+{
+  "name": "@repo/lib",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared API clients (REST, GraphQL, WebSocket) and zod schemas.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "axios": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "title": "One monorepo. Every channel proven.",
+  "greeting": "Hello! This page is translated live with next-intl.",
+  "cta": "Download the desktop app",
+  "features": {
+    "title": "What is inside",
+    "api": {
+      "title": "API",
+      "text": "FastAPI with REST, GraphQL and WebSocket in separate folders."
+    },
+    "web": {
+      "title": "Web and desktop",
+      "text": "React and Electron apps with three independent evidence panels."
+    },
+    "i18n": {
+      "title": "Modular i18n",
+      "text": "One JSON file per namespace and language."
+    }
+  }
+}

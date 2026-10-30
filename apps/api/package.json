@@ -1,0 +1,13 @@
+{
+  "name": "@repo/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Python workspace wrapper: lets Turborepo run uv commands like any other app.",
+  "scripts": {
+    "dev": "uv run uvicorn app.main:app --reload --port 8000",
+    "build": "uv run python -m compileall -q app",
+    "lint": "uv run ruff check . && uv run ruff format --check .",
+    "test": "uv run pytest",
+    "migrate": "uv run alembic upgrade head"
+  }
+}

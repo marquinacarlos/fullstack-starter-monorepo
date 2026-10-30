@@ -1,0 +1,45 @@
+{
+  "name": "@repo/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fullstack Starter desktop app",
+  "author": "Your Name <you@example.com>",
+  "main": "./out/main/main.js",
+  "scripts": {
+    "postinstall": "install-electron",
+    "dev": "electron-vite dev",
+    "build": "tsc --noEmit && electron-vite build",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "dist:desktop": "electron-vite build && electron-builder"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  },
+  "devDependencies": {
+    "@repo/lib": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/react-query": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "electron": "^45.1.0",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^6.0.0",
+    "i18next": "catalog:",
+    "i18next-browser-languagedetector": "catalog:",
+    "lucide-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-i18next": "catalog:",
+    "react-router-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "zustand": "catalog:"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "fullstack-starter-monorepo",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "pnpm + Turborepo template: FastAPI, React web, Electron desktop, Next.js landing.",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dist:desktop": "pnpm --filter @repo/desktop dist:desktop",
+    "bootstrap": "node scripts/bootstrap.mjs",
+    "check": "pnpm format:check && turbo run lint test build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "turbo": "^2.11.10",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.72.1"
+  }
+}

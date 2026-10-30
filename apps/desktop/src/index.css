@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@repo/tailwind-config";
+/* Tailwind only scans this app by default. Tell it to also scan the shared UI classes. */
+@source "../../../packages/ui/src";
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}

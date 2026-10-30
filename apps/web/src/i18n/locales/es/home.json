@@ -1,0 +1,34 @@
+{
+  "title": "Todo está conectado",
+  "greeting": "¡Hola! Cada panel de abajo prueba un canal por separado.",
+  "rest": {
+    "title": "REST",
+    "connected": "REST /health: conectado",
+    "checking": "REST /health: comprobando...",
+    "error": "REST /health: error",
+    "zod": "Respuesta validada con zod",
+    "itemsTitle": "Items (GET /api/items)",
+    "empty": "Aún no hay items",
+    "placeholder": "Nombre del nuevo item",
+    "add": "Añadir item (POST)"
+  },
+  "graphql": {
+    "title": "GraphQL",
+    "connected": "GraphQL health: {{value}}",
+    "checking": "GraphQL health: comprobando...",
+    "error": "GraphQL health: error",
+    "itemsTitle": "Items (query GraphQL)",
+    "empty": "Aún no hay items",
+    "refresh": "Actualizar"
+  },
+  "websocket": {
+    "title": "WebSocket",
+    "connected": "WebSocket: conectado",
+    "connecting": "WebSocket: conectando...",
+    "disconnected": "WebSocket: desconectado",
+    "messagesTitle": "Mensajes en vivo",
+    "waiting": "Esperando mensajes...",
+    "placeholder": "Escribe un mensaje",
+    "send": "Enviar (eco)"
+  }
+}

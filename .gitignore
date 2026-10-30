@@ -1,0 +1,39 @@
+node_modules/
+.pnpm-store/
+.turbo/
+dist/
+out/
+release/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+coverage/
+
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+.DS_Store
+*.log
+
+# Secrets and signing material (desktop code signing, local keys)
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local tooling
+.eslintcache
+.vite/
+.idea/
+Thumbs.db
+*.sqlite
+*.sqlite3
+.claude/settings.local.json

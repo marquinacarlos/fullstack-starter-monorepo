@@ -1,0 +1,44 @@
+appId: com.example.fullstackstarter
+productName: Fullstack Starter
+copyright: Copyright © 2026 Your Name
+
+directories:
+  buildResources: build
+  output: release
+
+# Only the compiled output ships. Renderer libraries are bundled by Vite,
+# so they are devDependencies and are not copied into the installer.
+files:
+  - out/**
+  - package.json
+
+mac:
+  category: public.app-category.developer-tools
+  icon: build/icon.png
+  target:
+    - dmg
+    - zip # electron-updater needs the zip on macOS
+
+win:
+  icon: build/icon.png
+  target:
+    - nsis
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  icon: build/icon.png
+  category: Utility
+  target:
+    - AppImage
+
+artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+
+# Auto-update reads releases from this GitHub repository. Replace OWNER and REPO.
+# `electron-builder` only uploads when you pass --publish; see docs/ELECTRON.md.
+publish:
+  provider: github
+  owner: OWNER
+  repo: REPO

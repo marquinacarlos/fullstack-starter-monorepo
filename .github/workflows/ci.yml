@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: CI only reads the repo. Jobs that publish must ask for more.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  js:
+    name: Lint, test, build (JS apps)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Turborepo needs history to find affected packages
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+
+      # On PRs only run apps affected by the change. On main run everything.
+      - name: Affected filter
+        id: filter
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "args=--filter=...[origin/${{ github.base_ref }}] --filter=!@repo/api --filter=!@repo/desktop" >> "$GITHUB_OUTPUT"
+          else
+            echo "args=--filter=!@repo/api --filter=!@repo/desktop" >> "$GITHUB_OUTPUT"
+          fi
+
+      # The API (uv) and desktop (matrix) have their own jobs below.
+      - run: pnpm turbo run lint test build ${{ steps.filter.outputs.args }}
+
+  api:
+    name: Lint and test (API)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: apps/api/uv.lock
+
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run pytest
+
+  electron:
+    name: Build Electron (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @repo/desktop lint
+      - run: pnpm --filter @repo/desktop test
+
+      # Builds installers for this OS. --publish never: CI must not upload anything.
+      - name: Build installers
+        run: pnpm --filter @repo/desktop exec electron-vite build && pnpm --filter @repo/desktop exec electron-builder --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false" # no code signing in CI
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-${{ matrix.os }}
+          path: apps/desktop/release/*.*
+          if-no-files-found: warn

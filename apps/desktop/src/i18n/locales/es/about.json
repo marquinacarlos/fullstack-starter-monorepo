@@ -1,0 +1,12 @@
+{
+  "title": "Acerca de este template",
+  "intro": "Un template de monorepo. Cada librería y canal tiene su propia prueba visible en la página de inicio.",
+  "stackTitle": "Lo que estás viendo",
+  "stack": {
+    "router": "react-router-dom: esta página es una segunda ruta.",
+    "i18n": "react-i18next: cada texto de aquí viene de un namespace JSON.",
+    "zustand": "zustand: el tema que elegiste se mantiene al cambiar de ruta.",
+    "tailwind": "Tailwind v4: los estilos vienen de tokens compartidos en @repo/tailwind-config.",
+    "lucide": "lucide-react: iconos en la cabecera."
+  }
+}

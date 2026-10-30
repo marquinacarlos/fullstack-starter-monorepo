@@ -1,0 +1,15 @@
+{
+  "appName": "Fullstack Starter",
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "buttons": {
+    "toggleTheme": "Toggle theme",
+    "changeLanguage": "Change language"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  }
+}

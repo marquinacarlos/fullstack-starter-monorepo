@@ -1,0 +1,9 @@
+{
+  "appName": "Starter Fullstack",
+  "nav": {
+    "home": "Inicio",
+    "download": "Descargar"
+  },
+  "language": "Idioma",
+  "footer": "Hecho con Next.js, next-intl y Tailwind CSS v4."
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Un monorepo. Cada canal comprobado.",
+  "greeting": "¡Hola! Esta página se traduce en caliente con next-intl.",
+  "cta": "Descargar la app de escritorio",
+  "features": {
+    "title": "Qué incluye",
+    "api": {
+      "title": "API",
+      "text": "FastAPI con REST, GraphQL y WebSocket en carpetas separadas."
+    },
+    "web": {
+      "title": "Web y escritorio",
+      "text": "Apps React y Electron con tres paneles de evidencia independientes."
+    },
+    "i18n": {
+      "title": "i18n modular",
+      "text": "Un archivo JSON por namespace e idioma."
+    }
+  }
+}

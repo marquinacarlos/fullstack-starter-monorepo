@@ -1,0 +1,11 @@
+{
+  "title": "Download",
+  "subtitle": "Choose the installer for your system.",
+  "button": "Download",
+  "note": "These links are placeholders. Point them to your GitHub releases.",
+  "platforms": {
+    "windows": "Windows (installer .exe)",
+    "macos": "macOS (.dmg)",
+    "linux": "Linux (AppImage)"
+  }
+}

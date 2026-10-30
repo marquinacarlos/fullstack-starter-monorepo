@@ -1,0 +1,22 @@
+{
+  "name": "@repo/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared React components styled with Tailwind v4 tokens.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "react": "catalog:",
+    "typescript": "catalog:"
+  }
+}

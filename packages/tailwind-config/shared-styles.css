@@ -1,0 +1,60 @@
+/* Shared design tokens. Imported by every app after `@import "tailwindcss"`. */
+
+/* Dark mode is driven by a `.dark` class on <html> (set by the zustand theme store).
+   The default `prefers-color-scheme` strategy would ignore the user's toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: oklch(0.985 0.002 250);
+  --foreground: oklch(0.21 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.02 260);
+  --muted: oklch(0.95 0.005 250);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --border: oklch(0.9 0.008 250);
+  --primary: oklch(0.55 0.2 265);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.93 0.01 250);
+  --secondary-foreground: oklch(0.25 0.02 260);
+  --success: oklch(0.62 0.17 150);
+  --danger: oklch(0.58 0.22 25);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 260);
+  --foreground: oklch(0.96 0.005 250);
+  --card: oklch(0.21 0.02 260);
+  --card-foreground: oklch(0.96 0.005 250);
+  --muted: oklch(0.25 0.02 260);
+  --muted-foreground: oklch(0.72 0.02 255);
+  --border: oklch(0.32 0.02 260);
+  --primary: oklch(0.68 0.17 265);
+  --primary-foreground: oklch(0.15 0.02 260);
+  --secondary: oklch(0.3 0.02 260);
+  --secondary-foreground: oklch(0.96 0.005 250);
+  --success: oklch(0.72 0.17 150);
+  --danger: oklch(0.7 0.19 25);
+}
+
+/* `inline` makes utilities reference the CSS variables above, so .dark can override them. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-card: 0.75rem;
+  --spacing-page: 1.5rem;
+}
