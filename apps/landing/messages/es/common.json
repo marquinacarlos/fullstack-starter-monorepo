@@ -5,5 +5,12 @@
     "download": "Descargar"
   },
   "language": "Idioma",
-  "footer": "Hecho con Next.js, next-intl y Tailwind CSS v4."
+  "footer": "Hecho con Next.js, next-intl y Tailwind CSS v4.",
+  "buttons": {
+    "toggleTheme": "Cambiar tema"
+  },
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro"
+  }
 }

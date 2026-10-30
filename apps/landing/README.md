@@ -9,7 +9,7 @@ Marketing / download site. App Router + next-intl, built as a **static export** 
 | `pnpm lint`  | ESLint (root config)                                            |
 | `pnpm test`  | Vitest (logic only, one smoke test)                             |
 
-It uses `@repo/tailwind-config`, and `@repo/ui` + `@repo/lib` for the "Everything is connected" demo section (live REST, GraphQL, WebSocket and databases, like web and desktop). Docs: [I18N](docs/I18N.md), [CONNECTED](docs/CONNECTED.md).
+It uses `@repo/tailwind-config`, and `@repo/ui` + `@repo/lib` for the "Everything is connected" demo section (live REST, GraphQL, WebSocket and databases, like web and desktop). It also has a light/dark theme toggle (zustand). Docs: [I18N](docs/I18N.md), [CONNECTED](docs/CONNECTED.md), [THEME](docs/THEME.md).
 
 Update the download links in `src/app/[locale]/download/page.tsx` (`RELEASES_URL`).
 

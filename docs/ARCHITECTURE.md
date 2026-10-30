@@ -37,7 +37,7 @@ The landing also has an "Everything is connected" demo section, so all three cli
 
 ## Tailwind v4, CSS-first
 
-No JavaScript config. Tokens are CSS variables in a `@theme` block. Dark mode is a `.dark` class, controlled by a zustand store, so the user's choice wins over the OS setting. See [TAILWIND.md](TAILWIND.md).
+No JavaScript config. Tokens are CSS variables in a `@theme` block. Dark mode is a `.dark` class, controlled by a zustand store (in all three clients), so the user's choice wins over the OS setting. See [TAILWIND.md](TAILWIND.md).
 
 ## Duplicated panels in web and desktop
 

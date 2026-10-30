@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 
 import { Link } from "../i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const t = useTranslations("common");
@@ -21,8 +22,9 @@ export function Header() {
             <Download size={16} /> {t("nav.download")}
           </Link>
         </nav>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
           <LanguageSwitcher />
+          <ThemeToggle />
         </div>
       </div>
     </header>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Header } from "../../components/Header";
+import { ThemeScript } from "../../components/ThemeScript";
 import { routing } from "../../i18n/routing";
 import "../globals.css";
 
@@ -38,7 +39,10 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
         <NextIntlClientProvider>
           <Header />

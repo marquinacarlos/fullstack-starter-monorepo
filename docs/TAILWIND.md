@@ -48,7 +48,7 @@ Other tokens: fonts (`--font-sans`, `--font-mono`), `--radius-card` (`rounded-ca
 
 ## Dark mode
 
-`@custom-variant dark (&:where(.dark, .dark *));` links `dark:` classes to a `.dark` class on `<html>`. The zustand store (`src/store/theme.ts`) toggles it and saves the choice in localStorage. Because tokens change under `.dark`, most components need no `dark:` classes.
+`@custom-variant dark (&:where(.dark, .dark *));` links `dark:` classes to a `.dark` class on `<html>`. The zustand store (`src/store/theme.ts`) toggles it and saves the choice in localStorage. Because tokens change under `.dark`, most components need no `dark:` classes. The landing (static HTML) also has a small script in `<head>` that sets the class before the first paint, to avoid a flash: see `apps/landing/docs/THEME.md`.
 
 ## Add a token
 
