@@ -23,4 +23,11 @@ Home shows three panels. Each one proves one channel and is independent: own com
 
 ## Why do I see "error"?
 
-The API or the database is not running. Start them: `docker compose up -d db`, then `pnpm --filter @repo/api migrate`, then `pnpm dev`.
+Each panel fails on its own, so the message tells you what is down:
+
+| You see                                                                     | Meaning                               | Fix                                                            |
+| --------------------------------------------------------------------------- | ------------------------------------- | -------------------------------------------------------------- |
+| `REST /health: error`, `GraphQL health: error` or `WebSocket: disconnected` | The API is not running                | Start it with `pnpm dev` and read the `@repo/api:dev` lines    |
+| `Could not load items. Is the database running?`                            | The API runs, but PostgreSQL does not | `docker compose up -d db` (or `pnpm bootstrap` the first time) |
+
+`REST /health`, `GraphQL health` and the WebSocket do not need the database. Only the items lists do, so they can fail while the status lines stay green.

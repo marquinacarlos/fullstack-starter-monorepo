@@ -18,13 +18,14 @@ export default function RootPage() {
       // storage blocked: fall back to the default
     }
     const locale = routing.locales.find((l) => l === saved) ?? DEFAULT_LOCALE;
-    router.replace(`/${locale}`);
+    // trailingSlash is on: go straight to /en/ and skip a 308 redirect hop.
+    router.replace(`/${locale}/`);
   }, [router]);
 
   // Visible only without JavaScript, or for a moment before the redirect.
   return (
     <p style={{ padding: "1.5rem", fontFamily: "sans-serif" }}>
-      <a href={`/${DEFAULT_LOCALE}`}>Continue</a>
+      <a href={`/${DEFAULT_LOCALE}/`}>Continue</a>
     </p>
   );
 }

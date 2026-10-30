@@ -4,12 +4,13 @@ Tests cover **logic and data**. They do not cover UI components, and there is no
 
 ## What is tested
 
-| Where                                                          | Tool                                  | Tests                                                                     |
-| -------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------- |
-| `apps/api/tests/test_health.py`                                | pytest + httpx (FastAPI `TestClient`) | `GET /health` returns `{"status":"ok"}` without DB; `X-Request-ID` header |
-| `apps/api/tests/test_items.py`                                 | same                                  | `GET /api/items`, `POST /api/items`, validation (empty name → 422)        |
-| `apps/api/tests/test_graphql.py`                               | same                                  | Query `health`; query `items` reads data created through REST             |
-| `apps/web`, `apps/desktop`, `apps/landing` `src/smoke.test.ts` | vitest                                | One smoke test per app: proves the runner works                           |
+| Where                                                          | Tool                                  | Tests                                                                                                                                        |
+| -------------------------------------------------------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apps/api/tests/test_health.py`                                | pytest + httpx (FastAPI `TestClient`) | `GET /health` returns `{"status":"ok"}` without DB; `X-Request-ID` header                                                                    |
+| `apps/api/tests/test_items.py`                                 | same                                  | `GET /api/items`, `POST /api/items`, validation (empty name → 422)                                                                           |
+| `apps/api/tests/test_db_down.py`                               | same                                  | With the database down: `/api/items` answers 503 with a clear message, `/health` and GraphQL `health` still work, no connection details leak |
+| `apps/api/tests/test_graphql.py`                               | same                                  | Query `health`; query `items` reads data created through REST                                                                                |
+| `apps/web`, `apps/desktop`, `apps/landing` `src/smoke.test.ts` | vitest                                | One smoke test per app: proves the runner works                                                                                              |
 
 ## What is not tested (on purpose)
 

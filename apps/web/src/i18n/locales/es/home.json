@@ -10,7 +10,9 @@
     "itemsTitle": "Items (GET /api/items)",
     "empty": "Aún no hay items",
     "placeholder": "Nombre del nuevo item",
-    "add": "Añadir item (POST)"
+    "add": "Añadir item (POST)",
+    "itemsError": "No se pudieron cargar los items. ¿Está corriendo la base de datos? (docker compose up -d db)",
+    "saveError": "No se pudo guardar el item. ¿Está corriendo la base de datos?"
   },
   "graphql": {
     "title": "GraphQL",
@@ -19,7 +21,8 @@
     "error": "GraphQL health: error",
     "itemsTitle": "Items (query GraphQL)",
     "empty": "Aún no hay items",
-    "refresh": "Actualizar"
+    "refresh": "Actualizar",
+    "itemsError": "No se pudieron cargar los items. ¿Está corriendo la base de datos? (docker compose up -d db)"
   },
   "websocket": {
     "title": "WebSocket",

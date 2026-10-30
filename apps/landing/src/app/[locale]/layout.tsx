@@ -8,6 +8,9 @@ import { Header } from "../../components/Header";
 import { routing } from "../../i18n/routing";
 import "../globals.css";
 
+// Unknown locales (/foo) are a plain 404 instead of an error in `next dev`.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }

@@ -4,14 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import { CheckCircle2, CircleAlert, Loader2, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-interface Overview {
-  health: string;
-  items: { id: number; name: string }[];
-}
-
-const OVERVIEW_QUERY = /* GraphQL */ `
-  query Overview {
+const HEALTH_QUERY = /* GraphQL */ `
+  query Health {
     health
+  }
+`;
+
+const ITEMS_QUERY = /* GraphQL */ `
+  query Items {
     items {
       id
       name
@@ -19,23 +19,30 @@ const OVERVIEW_QUERY = /* GraphQL */ `
   }
 `;
 
-// Independent panel: its own query (keys start with "graphql"), no REST code involved.
+// Independent panel: its own queries (keys start with "graphql"), no REST code involved.
+// Health and items are two separate queries on purpose: "health: ok" must not depend on the DB.
 export function PanelGraphQL() {
   const { t } = useTranslation("home");
 
-  const overview = useQuery({
-    queryKey: ["graphql", "overview"],
-    queryFn: () => graphqlRequest<Overview>(OVERVIEW_QUERY),
+  const health = useQuery({
+    queryKey: ["graphql", "health"],
+    queryFn: async () => (await graphqlRequest<{ health: string }>(HEALTH_QUERY)).health,
     refetchInterval: 5000,
   });
 
-  const status = overview.isPending
+  const items = useQuery({
+    queryKey: ["graphql", "items"],
+    queryFn: async () =>
+      (await graphqlRequest<{ items: { id: number; name: string }[] }>(ITEMS_QUERY)).items,
+  });
+
+  const status = health.isPending
     ? { icon: <Loader2 size={16} className="animate-spin" />, text: t("graphql.checking") }
-    : overview.isError
+    : health.isError
       ? { icon: <CircleAlert size={16} className="text-danger" />, text: t("graphql.error") }
       : {
           icon: <CheckCircle2 size={16} className="text-success" />,
-          text: t("graphql.connected", { value: overview.data.health }),
+          text: t("graphql.connected", { value: health.data }),
         };
 
   return (
@@ -49,18 +56,25 @@ export function PanelGraphQL() {
         </p>
 
         <h3 className="text-sm font-semibold">{t("graphql.itemsTitle")}</h3>
-        {overview.isSuccess && overview.data.items.length === 0 && (
+        {items.isError && <p className="text-sm text-danger">{t("graphql.itemsError")}</p>}
+        {items.isSuccess && items.data.length === 0 && (
           <p className="text-sm text-muted-foreground">{t("graphql.empty")}</p>
         )}
         <ul className="space-y-1 text-sm">
-          {overview.data?.items.map((item) => (
+          {items.data?.map((item) => (
             <li key={item.id}>
               #{item.id} {item.name}
             </li>
           ))}
         </ul>
 
-        <Button variant="secondary" onClick={() => void overview.refetch()}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            void health.refetch();
+            void items.refetch();
+          }}
+        >
           <RefreshCw size={14} /> {t("graphql.refresh")}
         </Button>
       </CardContent>

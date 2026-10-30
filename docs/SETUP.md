@@ -36,7 +36,7 @@ pnpm dev
 
 Open web or desktop: you should see three panels (REST, GraphQL, WebSocket) with green status. Landing shows EN/ES buttons.
 
-If a panel says "error", the API or DB is not running. Check `docker compose ps`.
+If something shows an error, see [Troubleshooting](#troubleshooting).
 
 ## API in Docker (optional)
 
@@ -89,6 +89,10 @@ pnpm format          # Prettier for TS/JS/CSS/MD/JSON
 ```
 
 ## Troubleshooting
+
+- **"Could not load items. Is the database running?"** (REST or GraphQL panel) and a `WARNING ... Cannot reach the database` line in the API log: PostgreSQL is not running. Run `pnpm bootstrap` (first time) or `docker compose up -d db`. The `REST /health`, `GraphQL health` and WebSocket panels keep working without the database, on purpose: each panel proves its own channel.
+- **`REST /health: error`** or **`WebSocket: disconnected`**: the API itself is not running. Look at the `@repo/api:dev` lines in the terminal.
+- **The terminal prints the same error again and again**: read the first one. Usually it is the database (above) or a port already in use.
 
 - **Port already in use**: web and desktop use `strictPort`, so they fail instead of moving to another port (CORS depends on fixed ports).
 - **Electron does not open / "Electron uninstall"**: the binary is downloaded by the `postinstall` script of `apps/desktop`. If you were offline, run `pnpm --filter @repo/desktop exec install-electron`.

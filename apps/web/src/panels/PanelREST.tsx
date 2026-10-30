@@ -49,6 +49,7 @@ export function PanelREST() {
         {health.isSuccess && <p className="text-xs text-muted-foreground">{t("rest.zod")}</p>}
 
         <h3 className="text-sm font-semibold">{t("rest.itemsTitle")}</h3>
+        {items.isError && <p className="text-sm text-danger">{t("rest.itemsError")}</p>}
         {items.isSuccess && items.data.length === 0 && (
           <p className="text-sm text-muted-foreground">{t("rest.empty")}</p>
         )}
@@ -76,6 +77,7 @@ export function PanelREST() {
             {t("rest.add")}
           </Button>
         </form>
+        {addItem.isError && <p className="text-sm text-danger">{t("rest.saveError")}</p>}
       </CardContent>
     </Card>
   );

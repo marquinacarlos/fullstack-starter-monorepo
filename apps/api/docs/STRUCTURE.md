@@ -5,6 +5,7 @@ apps/api/
 ├── app/
 │   ├── main.py              creates the app, mounts middlewares and channels
 │   ├── core/
+│   │   ├── errors.py        database-down handling (503, short log lines)
 │   │   ├── config.py        pydantic-settings; env file chosen by APP_ENV
 │   │   ├── middlewares.py   CORS + RequestID + Logging
 │   │   └── security.py      placeholder (no auth)
