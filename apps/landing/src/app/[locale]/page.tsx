@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { use } from "react";
 
+import { ConnectedSection } from "../../components/connected/ConnectedSection";
 import { Link } from "../../i18n/navigation";
 
 export default function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -38,6 +39,7 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
           </section>
         ))}
       </div>
+      <ConnectedSection />
     </>
   );
 }

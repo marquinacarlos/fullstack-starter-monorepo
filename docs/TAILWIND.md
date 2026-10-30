@@ -20,7 +20,7 @@ There is **no** `tailwind.config.js` or `tailwind.config.ts`. All configuration 
 - `@import "@repo/tailwind-config"` loads the shared tokens. The package exports its CSS with the `style` condition.
 - `@source` tells Tailwind to scan `packages/ui` for class names. Tailwind v4 detects sources automatically, but not inside other workspace packages. Without this line, `Button` and `Card` would lose their styles.
 - The path is relative to the CSS file.
-- Landing does not use `@repo/ui`, so it has no `@source`.
+- Landing uses `@repo/ui` only in its demo section, so its `@source` is `../../../../packages/ui/src` (relative to `src/app/globals.css`).
 
 ## Plugins
 

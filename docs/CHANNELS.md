@@ -2,14 +2,14 @@
 
 The template includes three ways for a client to talk to the API. Each one is independent.
 
-|                      | REST                              | GraphQL                         | WebSocket                     |
-| -------------------- | --------------------------------- | ------------------------------- | ----------------------------- |
-| API folder           | `apps/api/app/api/routes/`        | `apps/api/app/api/graphql/`     | `apps/api/app/api/websocket/` |
-| Endpoint             | `/health`, `/api/items`           | `POST /graphql`                 | `/ws`                         |
-| Client               | `@repo/lib` `axios.ts`            | `@repo/lib` `graphql-client.ts` | `@repo/lib` `ws-client.ts`    |
-| Panel (web, desktop) | `PanelREST.tsx`                   | `PanelGraphQL.tsx`              | `PanelWebSocket.tsx`          |
-| Returns              | Plain JSON                        | JSON from a query               | Messages in both directions   |
-| Test                 | `test_health.py`, `test_items.py` | `test_graphql.py`               | none (see note)               |
+|                               | REST                              | GraphQL                         | WebSocket                     |
+| ----------------------------- | --------------------------------- | ------------------------------- | ----------------------------- |
+| API folder                    | `apps/api/app/api/routes/`        | `apps/api/app/api/graphql/`     | `apps/api/app/api/websocket/` |
+| Endpoint                      | `/health`, `/api/items`           | `POST /graphql`                 | `/ws`                         |
+| Client                        | `@repo/lib` `axios.ts`            | `@repo/lib` `graphql-client.ts` | `@repo/lib` `ws-client.ts`    |
+| Panel (web, desktop, landing) | `PanelREST.tsx`                   | `PanelGraphQL.tsx`              | `PanelWebSocket.tsx`          |
+| Returns                       | Plain JSON                        | JSON from a query               | Messages in both directions   |
+| Test                          | `test_health.py`, `test_items.py` | `test_graphql.py`               | none (see note)               |
 
 Note: the WebSocket channel has no automated test in this template. Its proof is the live panel.
 

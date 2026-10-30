@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
+/* Scan the shared UI classes (used by the "Everything is connected" demo). */
+@source "../../../../packages/ui/src";
 
 body {
   background-color: var(--color-background);

@@ -5,7 +5,7 @@ import { routing } from "./routing";
 
 // One JSON file per namespace in messages/{locale}/. To add a namespace, add its name here
 // and create the file in every language. See docs/I18N.md.
-const namespaces = ["common", "home", "download"] as const;
+const namespaces = ["common", "home", "download", "connected"] as const;
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const requested = await requestLocale;

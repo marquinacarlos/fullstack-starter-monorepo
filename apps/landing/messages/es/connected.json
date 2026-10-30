@@ -1,0 +1,49 @@
+{
+  "title": "Todo está conectado",
+  "greeting": "¡Hola! Cada panel de abajo prueba un canal por separado.",
+  "rest": {
+    "title": "REST",
+    "connected": "REST /health: conectado",
+    "checking": "REST /health: comprobando...",
+    "error": "REST /health: error",
+    "zod": "Respuesta validada con zod",
+    "itemsTitle": "Items (GET /api/items)",
+    "empty": "Aún no hay items",
+    "placeholder": "Nombre del nuevo item",
+    "add": "Añadir item (POST)",
+    "itemsError": "No se pudieron cargar los items. Viven en la base de datos SQLite: revisa el panel de Bases de datos.",
+    "saveError": "No se pudo guardar el item. Revisa el panel de Bases de datos."
+  },
+  "graphql": {
+    "title": "GraphQL",
+    "connected": "GraphQL health: {value}",
+    "checking": "GraphQL health: comprobando...",
+    "error": "GraphQL health: error",
+    "itemsTitle": "Items (query GraphQL)",
+    "empty": "Aún no hay items",
+    "refresh": "Actualizar",
+    "itemsError": "No se pudieron cargar los items. Viven en la base de datos SQLite: revisa el panel de Bases de datos."
+  },
+  "websocket": {
+    "title": "WebSocket",
+    "connected": "WebSocket: conectado",
+    "connecting": "WebSocket: conectando...",
+    "disconnected": "WebSocket: desconectado",
+    "messagesTitle": "Mensajes en vivo",
+    "waiting": "Esperando mensajes...",
+    "placeholder": "Escribe un mensaje",
+    "send": "Enviar (eco)"
+  },
+  "databases": {
+    "title": "Bases de datos",
+    "checking": "Bases de datos: comprobando...",
+    "error": "Bases de datos: no se puede llegar a la API",
+    "connected": "{name}: conectada",
+    "disabled": "{name}: desactivada",
+    "unavailable": "{name}: no disponible",
+    "unavailableHint": "Opcional. No está corriendo (PostgreSQL: pnpm db:up).",
+    "none": "Este proyecto no tiene bases de datos.",
+    "note": "Cada base de datos es opcional. Mira docs/DATABASES.md."
+  },
+  "notConfigured": "La demo en vivo necesita la dirección de la API. Define NEXT_PUBLIC_API_URL en apps/landing/.env.development (dev) o .env.production (build)."
+}

@@ -9,8 +9,8 @@ Marketing / download site. App Router + next-intl, built as a **static export** 
 | `pnpm lint`  | ESLint (root config)                                            |
 | `pnpm test`  | Vitest (logic only, one smoke test)                             |
 
-It only uses `@repo/tailwind-config` from the shared packages. Docs: [I18N](docs/I18N.md).
+It uses `@repo/tailwind-config`, and `@repo/ui` + `@repo/lib` for the "Everything is connected" demo section (live REST, GraphQL, WebSocket and databases, like web and desktop). Docs: [I18N](docs/I18N.md), [CONNECTED](docs/CONNECTED.md).
 
 Update the download links in `src/app/[locale]/download/page.tsx` (`RELEASES_URL`).
 
-Env: no variables are needed today. If you need one, use `NEXT_PUBLIC_*` in `.env.development` (dev) or `.env.production` (build). It is public and baked into the static files.
+Env: `NEXT_PUBLIC_API_URL` (API address for the demo section) in `.env.development` (dev) or `.env.production` (build). It is public and baked into the static files. If it is missing, the page still builds and works.

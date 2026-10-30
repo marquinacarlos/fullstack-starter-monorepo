@@ -67,7 +67,7 @@ Production values can also come from your hosting or CI as real environment vari
 | `VITE_API_URL`              | web, desktop   | **Public** (inside the bundle). Dev: `.env.development`. Build: `.env.production`                                              |
 | `POSTGRES_USER/PASSWORD/DB` | docker-compose | Optional. Defaults to `app`. To change them use a root `.env` (git-ignored) and update `POSTGRES_URL` in `apps/api/.env.local` |
 
-Landing needs no variables today. If it does, use `NEXT_PUBLIC_*` in `apps/landing/.env.development` (also public).
+Landing: `NEXT_PUBLIC_API_URL` in `apps/landing/.env.development` (same value as `VITE_API_URL`). It is **public** and baked into the static files. Without it the landing still works; only its demo section shows a hint.
 
 How files are chosen:
 

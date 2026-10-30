@@ -10,7 +10,7 @@ Quick rules (details in the docs):
 - i18n: one JSON file per namespace per language. See `docs/I18N.md`.
 - Databases are optional and independent (SQLite on by default, PostgreSQL ready). See `docs/DATABASES.md`.
 - Env files live in each app folder (`.env.development` committed, `.env.production`/`.env.local` ignored). No root `.env`, no real secrets in git. See `docs/SETUP.md`.
-- `apps/landing` is a static frontend: no route handlers, no server actions.
+- `apps/landing` is a static frontend: no route handlers, no server actions. Its demo section calls the API from the browser (see `apps/landing/docs/CONNECTED.md`).
 - Tests cover logic and data only: no component tests, no E2E.
 - Starting a new project from this template? Follow `docs/NEW_PROJECT.md`.
 

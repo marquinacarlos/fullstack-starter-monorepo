@@ -26,12 +26,14 @@ Channels do not import each other. GraphQL reads the DB through its own context,
 ## Shared packages without a build step
 
 `@repo/ui`, `@repo/lib` and `@repo/tailwind-config` export TypeScript or CSS **source**. Vite and Electron-Vite compile them as part of the app. This removes watch/build pipelines for packages and makes "go to definition" work.
-Trade-off: a consumer must be able to compile TypeScript. That is true for every app here. That is why the landing (Next.js) only uses the CSS package and does not need `transpilePackages`.
+Trade-off: a consumer must be able to compile TypeScript. That is true for every app here. Next.js needs `transpilePackages` to compile them: the landing sets it for `@repo/lib` and `@repo/ui`.
 
 ## Landing is a static frontend
 
 Next.js is used only to build static HTML (`output: "export"` in `apps/landing/next.config.ts`). There is no Node server at runtime and no API in Next: the API is `apps/api`. Because of `output: "export"`, the build fails if someone adds route handlers or server actions. It also means no `proxy.ts` (middleware), so `/` is a normal page that redirects to the default language.
 You can host `apps/landing/out/` on any static host or CDN.
+
+The landing also has an "Everything is connected" demo section, so all three clients prove they reach the API and the databases. It stays static: the panels are client components that call FastAPI from the browser. See `apps/landing/docs/CONNECTED.md`.
 
 ## Tailwind v4, CSS-first
 

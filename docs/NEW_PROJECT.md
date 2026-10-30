@@ -36,7 +36,7 @@ Search results of the template placeholders. Change only what applies to your pr
 | `apps/landing/src/app/[locale]/download/page.tsx`    | `RELEASES_URL` (`OWNER/REPO`)                                        | Your GitHub releases URL                                                           |
 | `docker-compose.yml` and `apps/api/.env.development` | `POSTGRES_*` defaults and `POSTGRES_URL` (`app`)                     | Your database name and user (only if you keep PostgreSQL). Keep both files in sync |
 
-**Production values** (when you deploy): in `apps/api`, `apps/web` and `apps/desktop`, copy `.env.production.example` to `.env.production` (git-ignored) with your real URLs, or set the variables in your hosting or CI. Never commit them. See [SETUP.md](SETUP.md#environment-variables).
+**Production values** (when you deploy): in `apps/api`, `apps/web`, `apps/desktop` and `apps/landing`, copy `.env.production.example` to `.env.production` (git-ignored) with your real URLs, or set the variables in your hosting or CI. Never commit them. See [SETUP.md](SETUP.md#environment-variables).
 
 Replace the placeholder icon `apps/desktop/build/icon.png` before releasing the desktop app.
 

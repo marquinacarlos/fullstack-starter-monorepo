@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["VITE_API_URL", "NODE_ENV"],
+  "globalEnv": ["VITE_API_URL", "NEXT_PUBLIC_API_URL", "NODE_ENV"],
   "globalPassThroughEnv": ["APP_ENV", "SQLITE_URL", "POSTGRES_URL", "CORS_ORIGINS"],
   "tasks": {
     "dev": {

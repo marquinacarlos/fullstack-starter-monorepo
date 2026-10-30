@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   output: "export",
   // /en/ -> en/index.html. Works on any static host without rewrite rules (/en -> en.html would not).
   trailingSlash: true,
+  // Shared packages are TypeScript source (no build step): Next must compile them.
+  transpilePackages: ["@repo/lib", "@repo/ui"],
   // Next 16 writes an AGENTS.md into the app folder on `dev`. Our agent docs live in /docs.
   agentRules: false,
 };
