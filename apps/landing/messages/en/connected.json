@@ -11,8 +11,8 @@
     "empty": "No items yet",
     "placeholder": "New item name",
     "add": "Add item (POST)",
-    "itemsError": "Could not load items. They live in the SQLite database: check the Databases panel.",
-    "saveError": "Could not save the item. Check the Databases panel."
+    "itemsError": "Could not load items. Check that the API and its database are running.",
+    "saveError": "Could not save the item. Check that the API and its database are running."
   },
   "graphql": {
     "title": "GraphQL",
@@ -22,7 +22,7 @@
     "itemsTitle": "Items (GraphQL query)",
     "empty": "No items yet",
     "refresh": "Refresh",
-    "itemsError": "Could not load items. They live in the SQLite database: check the Databases panel."
+    "itemsError": "Could not load items. Check that the API and its database are running."
   },
   "websocket": {
     "title": "WebSocket",
@@ -41,7 +41,7 @@
     "connected": "{name}: connected",
     "disabled": "{name}: disabled",
     "unavailable": "{name}: not available",
-    "unavailableHint": "Optional. It is not running (PostgreSQL: pnpm db:up).",
+    "unavailableHint": "Optional. It is not running.",
     "none": "No databases in this project.",
     "note": "Each database is optional. See docs/DATABASES.md."
   },

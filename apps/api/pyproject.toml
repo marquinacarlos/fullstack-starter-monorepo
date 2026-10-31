@@ -1,16 +1,16 @@
 [project]
 name = "api"
 version = "0.1.0"
-description = "FastAPI backend: REST, GraphQL and WebSocket channels, each in its own folder."
+description = "FastAPI backend."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alembic>=1.20.1",
+    "alembic>=1.20.1",  # scaffold:line db-layer
     "fastapi>=0.162.0",
-    "psycopg[binary]>=3.3.6",
+    "psycopg[binary]>=3.3.6",  # scaffold:line postgres
     "pydantic-settings>=2.16.2",
-    "sqlalchemy>=2.1.6",
-    "strawberry-graphql[fastapi]>=0.339.0",
+    "sqlalchemy>=2.1.6",  # scaffold:line db-layer
+    "strawberry-graphql[fastapi]>=0.339.0",  # scaffold:line graphql
     "uvicorn[standard]>=0.54.0",
 ]
 

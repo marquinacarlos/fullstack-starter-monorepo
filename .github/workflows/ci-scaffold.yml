@@ -1,0 +1,34 @@
+name: CI Scaffold
+
+# Everything in the template can break a preset (code, docs and markers), so no path filter.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: CI only reads the repo.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Preset (${{ matrix.preset }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # A subset: the full matrix runs locally with `pnpm scaffold:verify`.
+        preset: [full, api-web-postgres, api-only, web-only, next-only]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup-uv
+
+      # Copies the template, prunes it, then runs `pnpm check` and a smoke test of the API.
+      # --docker also applies a real PostgreSQL migration in presets that keep PostgreSQL.
+      - run: node scripts/scaffold/verify.mjs --preset ${{ matrix.preset }} --docker

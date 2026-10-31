@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
-/* Scan the shared UI classes (used by the "Everything is connected" demo). */
+/* Scan the shared UI classes. */
 @source "../../../../packages/ui/src";
 
 body {

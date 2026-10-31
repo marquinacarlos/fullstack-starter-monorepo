@@ -12,6 +12,7 @@ const HEALTH_QUERY = /* GraphQL */ `
   }
 `;
 
+// scaffold:begin items
 const ITEMS_QUERY = /* GraphQL */ `
   query Items {
     items {
@@ -20,6 +21,8 @@ const ITEMS_QUERY = /* GraphQL */ `
     }
   }
 `;
+
+// scaffold:end items
 
 // Independent panel: its own queries (keys start with "graphql"), no REST code involved.
 // Health and items are two separate queries on purpose: "health: ok" must not depend on the DB.
@@ -32,11 +35,14 @@ export function PanelGraphQL() {
     refetchInterval: 5000,
   });
 
+  // scaffold:begin items
   const items = useQuery({
     queryKey: ["graphql", "items"],
     queryFn: async () =>
       (await graphqlRequest<{ items: { id: number; name: string }[] }>(ITEMS_QUERY)).items,
   });
+
+  // scaffold:end items
 
   const status = health.isPending
     ? { icon: <Loader2 size={16} className="animate-spin" />, text: t("graphql.checking") }
@@ -57,6 +63,7 @@ export function PanelGraphQL() {
           {status.icon} {status.text}
         </p>
 
+        {/* scaffold:begin items */}
         <h3 className="text-sm font-semibold">{t("graphql.itemsTitle")}</h3>
         {items.isError && <p className="text-sm text-danger">{t("graphql.itemsError")}</p>}
         {items.isSuccess && items.data.length === 0 && (
@@ -69,12 +76,13 @@ export function PanelGraphQL() {
             </li>
           ))}
         </ul>
+        {/* scaffold:end items */}
 
         <Button
           variant="secondary"
           onClick={() => {
             void health.refetch();
-            void items.refetch();
+            void items.refetch(); // scaffold:line items
           }}
         >
           <RefreshCw size={14} /> {t("graphql.refresh")}

@@ -11,8 +11,8 @@
     "empty": "Aún no hay items",
     "placeholder": "Nombre del nuevo item",
     "add": "Añadir item (POST)",
-    "itemsError": "No se pudieron cargar los items. Viven en la base de datos SQLite: revisa el panel de Bases de datos.",
-    "saveError": "No se pudo guardar el item. Revisa el panel de Bases de datos."
+    "itemsError": "No se pudieron cargar los items. Comprueba que la API y su base de datos estén en marcha.",
+    "saveError": "No se pudo guardar el item. Comprueba que la API y su base de datos estén en marcha."
   },
   "graphql": {
     "title": "GraphQL",
@@ -22,7 +22,7 @@
     "itemsTitle": "Items (query GraphQL)",
     "empty": "Aún no hay items",
     "refresh": "Actualizar",
-    "itemsError": "No se pudieron cargar los items. Viven en la base de datos SQLite: revisa el panel de Bases de datos."
+    "itemsError": "No se pudieron cargar los items. Comprueba que la API y su base de datos estén en marcha."
   },
   "websocket": {
     "title": "WebSocket",
@@ -41,7 +41,7 @@
     "connected": "{{name}}: conectada",
     "disabled": "{{name}}: desactivada",
     "unavailable": "{{name}}: no disponible",
-    "unavailableHint": "Opcional. No está corriendo (PostgreSQL: pnpm db:up).",
+    "unavailableHint": "Opcional. No está corriendo.",
     "none": "Este proyecto no tiene bases de datos.",
     "note": "Cada base de datos es opcional. Mira docs/DATABASES.md."
   }

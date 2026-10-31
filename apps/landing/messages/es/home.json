@@ -6,7 +6,7 @@
     "title": "Qué incluye",
     "api": {
       "title": "API",
-      "text": "FastAPI con REST, GraphQL y WebSocket en carpetas separadas."
+      "text": "FastAPI con una carpeta por canal."
     },
     "web": {
       "title": "Web y escritorio",

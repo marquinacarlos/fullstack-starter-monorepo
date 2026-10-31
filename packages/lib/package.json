@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Shared API clients (REST, GraphQL, WebSocket) and zod schemas.",
+  "description": "Shared API clients and schemas.",
   "exports": {
     ".": "./src/index.ts"
   },

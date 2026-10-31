@@ -1,9 +1,10 @@
-import { Download, Home } from "lucide-react";
+import { Home } from "lucide-react";
+import { Download } from "lucide-react"; // scaffold:line desktop
 import { useTranslations } from "next-intl";
 
 import { Link } from "../i18n/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { ThemeToggle } from "./ThemeToggle";
+import { ThemeToggle } from "./ThemeToggle"; // scaffold:line dark-mode
 
 export function Header() {
   const t = useTranslations("common");
@@ -17,15 +18,19 @@ export function Header() {
         <span className="font-semibold md:mr-4">{t("appName")}</span>
         <div className="ml-auto flex items-center gap-1 sm:gap-2 md:order-last">
           <LanguageSwitcher />
+          {/* scaffold:begin dark-mode */}
           <ThemeToggle />
+          {/* scaffold:end dark-mode */}
         </div>
         <nav className="order-last flex w-full gap-1 md:order-none md:w-auto">
           <Link href="/" className={linkClass}>
             <Home size={16} /> {t("nav.home")}
           </Link>
+          {/* scaffold:begin desktop */}
           <Link href="/download" className={linkClass}>
             <Download size={16} /> {t("nav.download")}
           </Link>
+          {/* scaffold:end desktop */}
         </nav>
       </div>
     </header>

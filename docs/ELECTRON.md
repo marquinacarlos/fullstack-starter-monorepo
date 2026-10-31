@@ -28,8 +28,10 @@ Icons: `apps/desktop/build/icon.png` (placeholder, 1024x1024). Replace it. elect
 1. Replace `appId`, `productName`, `copyright`, `linux.executableName` (letters, digits and hyphens only) and the `author` in `package.json`.
 2. Replace `publish.owner` and `publish.repo` with your GitHub repo.
 3. Replace the placeholder icon.
-4. Create `apps/desktop/.env.production` (copy `.env.production.example`) with your production API URL, or set `VITE_API_URL` in CI. It is baked into the bundle and is public.
+4. Create `apps/desktop/.env.production` (copy `.env.production.example`) with your production API URL, or set `VITE_API_URL` in CI. It is baked into the bundle and is public. <!-- scaffold:line channels -->
 5. Add **code signing** (macOS certificate + notarization, Windows certificate). Without it, macOS auto-update does not work and Windows shows warnings.
+
+<!-- scaffold:begin api -->
 
 ## API access from the packaged app (CORS)
 
@@ -42,6 +44,8 @@ What this means:
 - CORS is not a security boundary. The API cannot tell your app apart from any other client, so protect it with authentication when you add it.
 - If you change how the window loads (a custom protocol like `app://`, or a remote `https://` URL), the page gets a real origin and CORS applies again. Add that origin to `CORS_ORIGINS`.
 - Not tested on Windows or Linux. Check there before your first release.
+
+<!-- scaffold:end api -->
 
 ## Publish a release
 

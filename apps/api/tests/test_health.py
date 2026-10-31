@@ -4,6 +4,12 @@ def test_health_returns_ok_without_db(client):
     assert response.json() == {"status": "ok"}
 
 
+# scaffold:begin items
+def test_health_does_not_need_a_database(client, sqlite_down):
+    assert client.get("/health").json() == {"status": "ok"}
+
+
+# scaffold:end items
 def test_health_sets_request_id_header(client):
     response = client.get("/health", headers={"X-Request-ID": "abc-123"})
     assert response.headers["X-Request-ID"] == "abc-123"

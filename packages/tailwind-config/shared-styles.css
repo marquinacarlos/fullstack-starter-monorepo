@@ -1,6 +1,6 @@
 /* Shared design tokens. Imported by every app after `@import "tailwindcss"`. */
 
-/* Dark mode is driven by a `.dark` class on <html> (set by the zustand theme store).
+/* Dark mode is driven by a `.dark` class on <html> (set by the theme toggle).
    The default `prefers-color-scheme` strategy would ignore the user's toggle. */
 @custom-variant dark (&:where(.dark, .dark *));
 

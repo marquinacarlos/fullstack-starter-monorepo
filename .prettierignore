@@ -1,7 +1,13 @@
 node_modules
+# scaffold:begin landing
 .next
+# scaffold:end landing
 dist
 out
+# scaffold:begin desktop
 release
+# scaffold:end desktop
 pnpm-lock.yaml
+# scaffold:begin api
 apps/api
+# scaffold:end api

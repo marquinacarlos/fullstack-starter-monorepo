@@ -30,14 +30,22 @@ minimumReleaseAgeExclude:
   - lucide-react@1.64.0
 
 # Install scripts (native binaries). pnpm 11 reads `allowBuilds`.
-# Only these packages may run postinstall; electron-winstaller is for
-# Squirrel.Windows installers, which this template does not use (NSIS).
+# Only these packages may run postinstall.
 allowBuilds:
+  # scaffold:begin desktop
   electron: true # pnpm flags it (install.js); the binary itself downloads on first run
-  esbuild: true
-  sharp: true
-  "@tailwindcss/oxide": true
+  # electron-winstaller is for Squirrel.Windows installers, which this template does not use (NSIS).
   electron-winstaller: false
-  # next-intl optional message-extraction tooling, not used here.
+  # scaffold:end desktop
+  esbuild: true
+  # scaffold:begin landing
+  sharp: true
+  # scaffold:end landing
+  # scaffold:begin static-out
+  # Optional tooling of some dependencies, not used here.
   "@parcel/watcher": false
   "@swc/core": false
+  # scaffold:end static-out
+  # scaffold:begin tailwind
+  "@tailwindcss/oxide": true
+  # scaffold:end tailwind

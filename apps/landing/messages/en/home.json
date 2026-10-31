@@ -6,7 +6,7 @@
     "title": "What is inside",
     "api": {
       "title": "API",
-      "text": "FastAPI with REST, GraphQL and WebSocket in separate folders."
+      "text": "FastAPI with one folder per channel."
     },
     "web": {
       "title": "Web and desktop",

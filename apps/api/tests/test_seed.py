@@ -22,7 +22,9 @@ def test_seed_is_idempotent(client):
 
 
 def test_seed_keeps_rows_that_already_exist(client):
-    client.post("/api/items", json={"name": "First item", "description": "mine"})
+    with sqlite_db.session() as session:
+        session.add(Item(name="First item", description="mine"))
+        session.commit()
 
     seed_runner.main()
 

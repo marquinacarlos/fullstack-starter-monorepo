@@ -1,7 +1,13 @@
 import { Card, CardContent, CardHeader } from "@repo/ui";
 import { useTranslation } from "react-i18next";
 
-const stackKeys = ["router", "i18n", "zustand", "tailwind", "lucide"] as const;
+const stackKeys = [
+  "router",
+  "i18n",
+  "zustand", // scaffold:line dark-mode
+  "tailwind",
+  "lucide",
+] as const;
 
 export function About() {
   const { t } = useTranslation("about");

@@ -1,4 +1,4 @@
-# PostgreSQL is OPTIONAL: the monorepo runs without it (SQLite is the default demo database).
+# PostgreSQL is OPTIONAL: the monorepo runs without it.
 # Start it with `pnpm db:up`. Development only; production hosting is out of scope.
 # The defaults below match POSTGRES_URL in apps/api/.env.development, so no .env file is needed.
 # To change POSTGRES_*, put them in a root .env (git-ignored) and update POSTGRES_URL
@@ -26,7 +26,7 @@ services:
     profiles: ["api"]
     build: ./apps/api
     environment:
-      # Only PostgreSQL in the container: SQLITE_URL is not set, so SQLite stays disabled.
+      # Only PostgreSQL in the container: any other database stays disabled.
       POSTGRES_URL: postgresql+psycopg://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@db:5432/${POSTGRES_DB:-app}
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173,http://localhost:5174,http://localhost:3000}
     ports:

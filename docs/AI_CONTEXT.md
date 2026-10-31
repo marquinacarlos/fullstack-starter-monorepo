@@ -10,18 +10,26 @@ Starting a new project from this template? See [NEW_PROJECT.md](NEW_PROJECT.md).
 
 ## Map
 
-```
-apps/api       FastAPI. Channels in separate folders: routes/ (REST), graphql/, websocket/
-apps/web       React + Vite. Panels: PanelREST, PanelGraphQL, PanelWebSocket
-apps/desktop   Electron + React + Vite. Same panels + UpdatesStatus. electron-builder + electron-updater
-apps/landing   Next.js App Router + next-intl. Routes: / and /download (under /[locale]). Home has an "Everything is connected" demo (live panels)
-packages/tailwind-config   Tailwind v4 tokens (CSS only)
-packages/ui                Button, Input, Card
-packages/lib               axios, graphql-client, ws-client, zod schemas
-docs/                      Project docs (this folder)
-```
+| Path                       | What it is                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `apps/api`                 | FastAPI. One folder per channel in `app/api/` <!-- scaffold:line api -->                                                 |
+| `apps/web`                 | React + Vite. One independent panel per channel <!-- scaffold:line web -->                                               |
+| `apps/desktop`             | Electron + React + Vite. Same panels + UpdatesStatus. electron-builder + electron-updater <!-- scaffold:line desktop --> |
+| `apps/landing`             | Next.js App Router + next-intl (static export). Routes live under `/[locale]` <!-- scaffold:line landing -->             |
+| `packages/tailwind-config` | Tailwind v4 tokens (CSS only) <!-- scaffold:line tailwind -->                                                            |
+| `packages/ui`              | Button, Input, Card <!-- scaffold:line ui -->                                                                            |
+| `packages/lib`             | Typed API clients and zod schemas <!-- scaffold:line lib -->                                                             |
+| `docs/`                    | Project docs (this folder)                                                                                               |
 
-Ports: api 8000, web 5173, desktop 5174, landing 3000, Postgres 5432 (optional).
+Ports:
+
+- api: 8000 <!-- scaffold:line api -->
+- web: 5173 <!-- scaffold:line web -->
+- desktop: 5174 <!-- scaffold:line desktop -->
+- landing: 3000 <!-- scaffold:line landing -->
+- PostgreSQL: 5432 (optional) <!-- scaffold:line postgres -->
+
+<!-- scaffold:begin template -->
 
 ## Core vs removable
 
@@ -104,41 +112,57 @@ After removing SQLite and PostgreSQL:
 8. Web and desktop: delete `PanelDatabases.tsx`, its import and tag in `Home.tsx`, and the `databases` keys in both `home.json` files.
 
 With no database left, the API still serves `/health`, GraphQL `health` and the WebSocket.
+<!-- scaffold:end template -->
 
 ## Conventions
 
 - Package names: `@repo/<name>`. Internal dependencies use `workspace:*`. Shared third-party versions use `catalog:` (defined in `pnpm-workspace.yaml`).
 - Every app has the scripts `dev`, `build`, `lint`, `test`. Turborepo runs them by name.
 - Shared packages are consumed as TypeScript source. They have no build step.
-- **Mobile first**: base classes are for phones; add `sm:`/`md:`/`lg:` for wider screens. Every grid has a base `grid-cols-1`. Touch targets are 44 px on phones. See [TAILWIND.md](TAILWIND.md#responsive-design-mobile-first).
-- Tailwind v4 is **CSS-first**. Never create `tailwind.config.*`. Tokens live in `packages/tailwind-config/shared-styles.css`.
-- i18n: one JSON file per namespace per language. Never one big JSON.
-- Panels must stay independent: no shared hooks or stores between them. Query keys start with the channel name.
-- Databases are optional and independent: SQLite is on by default, PostgreSQL is ready (`pnpm db:up`). Each has its own models package and Alembic history. Never assume one exists. See [DATABASES.md](DATABASES.md).
+- **Mobile first**: base classes are for phones; add `sm:`/`md:`/`lg:` for wider screens. Every grid has a base `grid-cols-1`. Touch targets are 44 px on phones. See [TAILWIND.md](TAILWIND.md#responsive-design-mobile-first). <!-- scaffold:line frontends -->
+- Tailwind v4 is **CSS-first**. Never create `tailwind.config.*`. Tokens live in `packages/tailwind-config/shared-styles.css`. <!-- scaffold:line tailwind -->
+- i18n: one JSON file per namespace per language. Never one big JSON. <!-- scaffold:line frontends -->
+- Panels must stay independent: no shared hooks or stores between them. Query keys start with the channel name. <!-- scaffold:line channels,frontends -->
+- Databases are optional and independent. Each has its own models package and Alembic history. Never assume one exists. See [DATABASES.md](DATABASES.md). <!-- scaffold:line db-layer -->
 - Env files live in each app folder: `.env.development` (committed, no secrets), `.env.production.example` (committed), `.env.production` and `.env.local` (git-ignored). Never create a root `.env` and never commit real secrets: this repo is public. `VITE_*` values are public. See [SETUP.md](SETUP.md#environment-variables).
-- Python: ruff (`ruff.toml` at root), type hints, SQLAlchemy 2 style.
+- Python: ruff (`ruff.toml` at root) and type hints. <!-- scaffold:line api -->
+- Models use the SQLAlchemy 2 style. <!-- scaffold:line db-layer -->
 - Tests cover logic and data only. No component tests, no E2E.
 - Docs are in English, short sentences, file names in UPPERCASE.
 
 ## Warnings
 
-- Do not add a channel "just in case". In production pick one or two ([CHANNELS.md](CHANNELS.md)).
-- `apps/landing` is a **static frontend** (`output: "export"`). Never add route handlers (`route.ts`), server actions or `proxy.ts` to it. The backend is `apps/api`. The build fails if you try.
-- Do not add `tailwind.config.js`, Playwright, Cypress, or authentication unless the user asks.
-- `desktop` and `web` duplicate their panels on purpose. Do not move them into a shared package: it would couple the apps and break "remove one without touching the others".
+- Do not add a channel "just in case". In production pick one or two ([CHANNELS.md](CHANNELS.md)). <!-- scaffold:line channels -->
+- `apps/landing` is a **static frontend** (`output: "export"`). Never add route handlers (`route.ts`), server actions or `proxy.ts` to it. The backend is a separate app. The build fails if you try. <!-- scaffold:line landing -->
+- Do not add `tailwind.config.js`, Playwright, Cypress, or authentication unless the user asks. <!-- scaffold:line tailwind -->
+- `desktop` and `web` duplicate their panels on purpose. Do not move them into a shared package: it would couple the apps and break "remove one without touching the others". <!-- scaffold:line web,desktop -->
 - Native install scripts are allow-listed in `pnpm-workspace.yaml` (`allowBuilds`). If `pnpm install` fails with `ERR_PNPM_IGNORED_BUILDS`, decide per package and add it there.
 - TypeScript is pinned to 6.0 because `typescript-eslint` does not support 7 yet. Check before upgrading.
-- Auto-update and installers need a GitHub repo, releases and code signing. See [ELECTRON.md](ELECTRON.md).
-- CI runs `ruff` and `pytest` for the API, not the migrations: tests build tables from the models with in-memory SQLite, so a model change without its Alembic migration still passes. When you add or change a model, run `uv run alembic -n <database> check` and `pnpm db:migrate`. Once the project has real models or uses PostgreSQL, add `alembic check` to `.github/workflows/ci-api.yml`.
+- Auto-update and installers need a GitHub repo, releases and code signing. See [ELECTRON.md](ELECTRON.md). <!-- scaffold:line desktop -->
+- CI runs `ruff` and `pytest` for the API, not the migrations: tests build tables from the models, so a model change without its Alembic migration still passes. When you add or change a model, run `uv run alembic -n <database> check` and `pnpm db:migrate`. Once the project has real models, add `alembic check` to `.github/workflows/ci-api.yml` (it needs a running database). <!-- scaffold:line db-layer -->
 
 ## How to add things
 
-| Add…                  | Steps                                                                                                                                                                                                                                         |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **An app**            | [MONOREPO_GUIDE.md](MONOREPO_GUIDE.md#add-an-app)                                                                                                                                                                                             |
-| **A package**         | [MONOREPO_GUIDE.md](MONOREPO_GUIDE.md#add-a-package)                                                                                                                                                                                          |
-| **A backend channel** | Create `apps/api/app/api/<channel>/`, mount it in `main.py`, add a test, document it in [CHANNELS.md](CHANNELS.md) and `apps/api/docs/CHANNELS.md`. If frontends use it: add a client in `packages/lib` and an independent panel per frontend |
-| **An i18n namespace** | [I18N.md](I18N.md#add-a-namespace)                                                                                                                                                                                                            |
-| **An i18n language**  | [I18N.md](I18N.md#add-a-language)                                                                                                                                                                                                             |
-| **A DB model**        | `apps/api/docs/STRUCTURE.md` (last section)                                                                                                                                                                                                   |
-| **A REST endpoint**   | New file in `apps/api/app/api/routes/`, include it in `main.py`, test it in `apps/api/tests/`                                                                                                                                                 |
+| Add…                  | Steps                                                                                                                                                                                                                                                       |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **An app**            | [MONOREPO_GUIDE.md](MONOREPO_GUIDE.md#add-an-app)                                                                                                                                                                                                           |
+| **A package**         | [MONOREPO_GUIDE.md](MONOREPO_GUIDE.md#add-a-package)                                                                                                                                                                                                        |
+| **A backend channel** | Create `apps/api/app/api/<channel>/`, mount it in `main.py`, add a test, document it in [CHANNELS.md](CHANNELS.md) and `apps/api/docs/CHANNELS.md`. If frontends use it: add a client and an independent panel per frontend <!-- scaffold:line channels --> |
+| **An i18n namespace** | [I18N.md](I18N.md#add-a-namespace) <!-- scaffold:line frontends -->                                                                                                                                                                                         |
+| **An i18n language**  | [I18N.md](I18N.md#add-a-language) <!-- scaffold:line frontends -->                                                                                                                                                                                          |
+| **A DB model**        | `apps/api/docs/STRUCTURE.md` (last section) <!-- scaffold:line db-layer -->                                                                                                                                                                                 |
+| **A REST endpoint**   | New file in `apps/api/app/api/routes/`, include it in `main.py`, test it in `apps/api/tests/` <!-- scaffold:line rest -->                                                                                                                                   |
+
+<!-- scaffold:begin template -->
+
+## Maintaining the template (scaffold)
+
+`pnpm scaffold` prunes a copy of this template. It only works while the template keeps its promises:
+
+- A new option (an app, a channel, a database, a UI extra) gets an entry in `scripts/scaffold/features.mjs`: the paths it owns, its JSON edits and the words that must not survive its removal.
+- Files that mix several options carry markers (syntax in [SCAFFOLD.md](SCAFFOLD.md)). Prefer deleting whole files over markers.
+- A new preset or a new combination worth protecting goes in `PRESETS`, and `pnpm scaffold:verify` must pass for it before you commit.
+- Docs follow the code: a sentence about an option sits in a marked line or block, or is written so it stays true without it.
+- Never mark a file that has to compile in two forms at once. Write code that stays valid when a line disappears.
+
+<!-- scaffold:end template -->

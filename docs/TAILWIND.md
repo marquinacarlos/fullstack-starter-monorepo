@@ -4,10 +4,11 @@ There is **no** `tailwind.config.js` or `tailwind.config.ts`. All configuration 
 
 ## Where things are
 
-| File                                                    | Role                                          |
-| ------------------------------------------------------- | --------------------------------------------- |
-| `packages/tailwind-config/shared-styles.css`            | Design tokens in `@theme` + dark mode variant |
-| `apps/*/src/index.css` (landing: `src/app/globals.css`) | Imports Tailwind and the tokens               |
+| File                                         | Role                                                              |
+| -------------------------------------------- | ----------------------------------------------------------------- |
+| `packages/tailwind-config/shared-styles.css` | Design tokens in `@theme` + dark mode variant                     |
+| `apps/*/src/index.css`                       | Imports Tailwind and the tokens <!-- scaffold:line react-apps --> |
+| `apps/landing/src/app/globals.css`           | The same, for the landing <!-- scaffold:line landing -->          |
 
 ## App stylesheet
 
@@ -20,11 +21,13 @@ There is **no** `tailwind.config.js` or `tailwind.config.ts`. All configuration 
 - `@import "@repo/tailwind-config"` loads the shared tokens. The package exports its CSS with the `style` condition.
 - `@source` tells Tailwind to scan `packages/ui` for class names. Tailwind v4 detects sources automatically, but not inside other workspace packages. Without this line, `Button` and `Card` would lose their styles.
 - The path is relative to the CSS file.
-- Landing uses `@repo/ui` only in its demo section, so its `@source` is `../../../../packages/ui/src` (relative to `src/app/globals.css`).
+- Landing uses `@repo/ui` only in its demo section, so its `@source` is `../../../../packages/ui/src` (relative to `src/app/globals.css`). <!-- scaffold:line landing -->
 
 ## Plugins
 
-Vite apps use `@tailwindcss/vite` in `vite.config.ts` / `electron.vite.config.ts`. Landing uses `@tailwindcss/postcss` in `postcss.config.mjs`.
+- Web: `@tailwindcss/vite` in `vite.config.ts`. <!-- scaffold:line web -->
+- Desktop: `@tailwindcss/vite` in `electron.vite.config.ts`. <!-- scaffold:line desktop -->
+- Landing: `@tailwindcss/postcss` in `postcss.config.mjs`. <!-- scaffold:line landing -->
 
 ## Tokens
 
@@ -46,9 +49,13 @@ This creates `bg-primary`, `text-primary`, etc. `inline` is needed so the utilit
 
 Other tokens: fonts (`--font-sans`, `--font-mono`), `--radius-card` (`rounded-card`), `--spacing-page` (`px-page`).
 
+<!-- scaffold:begin dark-mode -->
+
 ## Dark mode
 
-`@custom-variant dark (&:where(.dark, .dark *));` links `dark:` classes to a `.dark` class on `<html>`. The zustand store (`src/store/theme.ts`) toggles it and saves the choice in localStorage. Because tokens change under `.dark`, most components need no `dark:` classes. The landing (static HTML) also has a small script in `<head>` that sets the class before the first paint, to avoid a flash: see `apps/landing/docs/THEME.md`.
+`@custom-variant dark (&:where(.dark, .dark *));` links `dark:` classes to a `.dark` class on `<html>`. The zustand store (`src/store/theme.ts`) toggles it and saves the choice in localStorage. Because tokens change under `.dark`, most components need no `dark:` classes.
+The landing (static HTML) also has a small script in `<head>` that sets the class before the first paint, to avoid a flash: see `apps/landing/docs/THEME.md`. <!-- scaffold:line landing -->
+<!-- scaffold:end dark-mode -->
 
 ## Add a token
 
@@ -56,7 +63,7 @@ Add the variable in `:root` and `.dark`, then map it in `@theme inline`. Every a
 
 ## Responsive design (mobile first)
 
-All three apps are built **mobile first**: the plain classes style a phone, and `sm:`, `md:` and `lg:` only add changes for wider screens. Tailwind breakpoints are `min-width`: `sm` 640 px, `md` 768 px, `lg` 1024 px. Do not use `max-*:` variants to patch the desktop layout.
+All apps are built **mobile first**: the plain classes style a phone, and `sm:`, `md:` and `lg:` only add changes for wider screens. Tailwind breakpoints are `min-width`: `sm` 640 px, `md` 768 px, `lg` 1024 px. Do not use `max-*:` variants to patch the desktop layout.
 
 Rules used in this repo:
 
@@ -70,11 +77,11 @@ Rules used in this repo:
 | Header: two rows on phones, one from `md`           | Name and controls on the first row, nav below (`order-last w-full md:order-none md:w-auto`). Icon-only buttons with an `aria-label`; the text appears from `sm` (`hidden sm:inline`) |
 | Page padding                                        | `px-4 sm:px-page`                                                                                                                                                                    |
 
-Desktop: the Electron window has a minimum size of 800x600 (`minWidth`, `minHeight` in `apps/desktop/src/main.ts`). 800 px is just above the `md` breakpoint (768 px), so the window always keeps the desktop layout. The UI itself is responsive down to phone width, so a project that needs a smaller window can lower these numbers.
+Desktop: the Electron window has a minimum size of 800x600 (`minWidth`, `minHeight` in `apps/desktop/src/main.ts`). 800 px is just above the `md` breakpoint (768 px), so the window always keeps the desktop layout. The UI itself is responsive down to phone width, so a project that needs a smaller window can lower these numbers. <!-- scaffold:line desktop -->
 
 ### How to check
 
-There are no component or E2E tests (see [TESTING.md](TESTING.md)), so check by hand in the browser at 320, 375, 768 and 1280 px, with a very long item name (`POST /api/items` accepts up to 100 characters without spaces). In the console, this must be `false` at every width:
+There are no component or E2E tests (see [TESTING.md](TESTING.md)), so check by hand in the browser at 320, 375, 768 and 1280 px, with very long text in every list and input. In the console, this must be `false` at every width:
 
 ```js
 document.documentElement.scrollWidth > document.documentElement.clientWidth;

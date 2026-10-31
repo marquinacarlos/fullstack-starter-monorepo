@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Header } from "../../components/Header";
-import { ThemeScript } from "../../components/ThemeScript";
+import { ThemeScript } from "../../components/ThemeScript"; // scaffold:line dark-mode
 import { routing } from "../../i18n/routing";
 import "../globals.css";
 
@@ -40,9 +40,11 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      {/* scaffold:begin dark-mode */}
       <head>
         <ThemeScript />
       </head>
+      {/* scaffold:end dark-mode */}
       <body>
         <NextIntlClientProvider>
           <Header />

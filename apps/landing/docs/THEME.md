@@ -24,8 +24,8 @@ The page is pre-rendered, so the server and the first client render must match: 
 ## Behavior
 
 - First visit: follows the system theme. After the visitor clicks the button, that choice wins.
-- The choice stays across routes (`/`, `/download`), reloads and language changes.
-- Each app saves it separately (browsers do not share storage between `localhost:3000`, `:5173` and `:5174`).
+- The choice stays across routes, reloads and language changes.
+- Each app saves it separately (browsers do not share storage between different `localhost` ports).
 
 ## Remove the theme toggle
 

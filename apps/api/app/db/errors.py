@@ -30,5 +30,5 @@ def register_db_error_handlers(app: FastAPI) -> None:
         logger.warning("%s %s -> 503 database error", request.method, request.url.path)
         return JSONResponse(
             status_code=503,
-            content={"detail": "A database is unavailable. See GET /health/databases."},
+            content={"detail": "A database is unavailable."},
         )

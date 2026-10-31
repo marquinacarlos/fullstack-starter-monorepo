@@ -1,13 +1,13 @@
 # "Everything is connected" section
 
-The landing is a marketing site, but its home page also has a demo section that proves the landing is wired to the same API and databases as the web and desktop apps. It shows the same four panels:
+The landing is a marketing site, but its home page also has a demo section that proves the landing is wired to the same API as the web and desktop apps. It shows the same panels:
 
-| Panel     | File                                          | Proves                                                                    |
-| --------- | --------------------------------------------- | ------------------------------------------------------------------------- |
-| REST      | `src/components/connected/PanelREST.tsx`      | `REST /health: connected`, items list and create (SQLite), zod            |
-| GraphQL   | `src/components/connected/PanelGraphQL.tsx`   | `GraphQL health: ok`, items by query                                      |
-| WebSocket | `src/components/connected/PanelWebSocket.tsx` | `WebSocket: connected`, live counter, echo                                |
-| Databases | `src/components/connected/PanelDatabases.tsx` | State of SQLite and PostgreSQL (`connected`, `disabled`, `not available`) |
+| Panel     | File                                          | Proves                                                                      |
+| --------- | --------------------------------------------- | --------------------------------------------------------------------------- |
+| REST      | `src/components/connected/PanelREST.tsx`      | `REST /health: connected`, zod <!-- scaffold:line rest -->                  |
+| GraphQL   | `src/components/connected/PanelGraphQL.tsx`   | `GraphQL health: ok` <!-- scaffold:line graphql -->                         |
+| WebSocket | `src/components/connected/PanelWebSocket.tsx` | `WebSocket: connected`, live counter, echo <!-- scaffold:line websocket --> |
+| Databases | `src/components/connected/PanelDatabases.tsx` | The state of each database <!-- scaffold:line db-status -->                 |
 
 ## It is still a static site
 
@@ -17,7 +17,7 @@ The landing is a marketing site, but its home page also has a demo section that 
 
 ## Where the code comes from
 
-- The panels are copies of the web app panels. They use `@repo/ui` and `@repo/lib` (REST, GraphQL and WebSocket clients, zod), like web and desktop.
+- The panels are copies of the web app panels. They use `@repo/ui` and `@repo/lib` (the API clients and zod), like web and desktop.
 - Texts come from the `connected` namespace (`messages/{en,es}/connected.json`), so the EN/ES buttons translate them too.
 - `@repo/lib` reads the API address from `VITE_API_URL` in Vite apps and from `NEXT_PUBLIC_API_URL` in Next.js.
 - `next.config.ts` has `transpilePackages: ["@repo/lib", "@repo/ui"]`, because those packages are TypeScript source.

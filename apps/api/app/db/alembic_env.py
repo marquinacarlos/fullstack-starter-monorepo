@@ -34,8 +34,10 @@ def run(db: Database) -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
+            # scaffold:begin sqlite
             # SQLite cannot ALTER most things in place; batch mode recreates the table.
             render_as_batch=db.engine.dialect.name == "sqlite",
+            # scaffold:end sqlite
         )
         with context.begin_transaction():
             context.run_migrations()

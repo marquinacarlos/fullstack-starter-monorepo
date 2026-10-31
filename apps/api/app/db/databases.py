@@ -15,7 +15,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine, make_url
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.pool import StaticPool  # scaffold:line sqlite
 
 from app.core.config import settings
 from app.db.errors import DatabaseDisabled, DatabaseUnavailable
@@ -28,15 +28,19 @@ Status = Literal["connected", "disabled", "unavailable"]
 def _create_engine(url: str) -> Engine:
     parsed = make_url(url)
     backend = parsed.get_backend_name()
+    # scaffold:begin sqlite
     if backend == "sqlite":
         options: dict = {"connect_args": {"check_same_thread": False}}
         if parsed.database in (None, "", ":memory:"):
             # An in-memory database lives in one connection: share it across threads.
             options["poolclass"] = StaticPool
         return create_engine(url, **options)
+    # scaffold:end sqlite
+    # scaffold:begin postgres
     if backend == "postgresql":
         # Short timeout: an unreachable host must not freeze startup or the status endpoint.
         return create_engine(url, pool_pre_ping=True, connect_args={"connect_timeout": 3})
+    # scaffold:end postgres
     return create_engine(url, pool_pre_ping=True)
 
 
@@ -99,6 +103,7 @@ class Database:
             yield session
 
 
+# scaffold:begin sqlite
 sqlite_db = Database(
     name="sqlite",
     label="SQLite",
@@ -106,7 +111,9 @@ sqlite_db = Database(
     url=settings.sqlite_url,
     models="app.models.sqlite",
 )
+# scaffold:end sqlite
 
+# scaffold:begin postgres
 postgres_db = Database(
     name="postgres",
     label="PostgreSQL",
@@ -115,8 +122,12 @@ postgres_db = Database(
     models="app.models.postgres",
     hint="Start it with `pnpm db:up`.",
 )
+# scaffold:end postgres
 
-databases: list[Database] = [sqlite_db, postgres_db]
+databases: list[Database] = [
+    sqlite_db,  # scaffold:line sqlite
+    postgres_db,  # scaffold:line postgres
+]
 
 
 async def log_database_status() -> None:

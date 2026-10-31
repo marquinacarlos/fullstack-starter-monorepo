@@ -3,9 +3,13 @@ node_modules/
 .turbo/
 dist/
 out/
+# scaffold:begin desktop
 release/
+# scaffold:end desktop
+# scaffold:begin landing
 .next/
 next-env.d.ts
+# scaffold:end landing
 *.tsbuildinfo
 coverage/
 
@@ -17,12 +21,14 @@ coverage/
 !.env.development
 !.env.*.example
 
+# scaffold:begin api
 # Python
 __pycache__/
 *.pyc
 .venv/
 .pytest_cache/
 .ruff_cache/
+# scaffold:end api
 
 .DS_Store
 *.log
@@ -38,7 +44,11 @@ __pycache__/
 .vite/
 .idea/
 Thumbs.db
+# scaffold:begin sqlite
 *.sqlite
+# scaffold:end sqlite
 *.db
+# scaffold:begin sqlite
 *.sqlite3
+# scaffold:end sqlite
 .claude/settings.local.json

@@ -9,10 +9,10 @@ export default tseslint.config(
       "**/node_modules/**",
       "**/dist/**",
       "**/out/**",
-      "**/release/**",
-      "**/.next/**",
-      "apps/api/**",
-      "**/next-env.d.ts",
+      "**/release/**", // scaffold:line desktop
+      "**/.next/**", // scaffold:line landing
+      "apps/api/**", // scaffold:line api
+      "**/next-env.d.ts", // scaffold:line landing
     ],
   },
   js.configs.recommended,

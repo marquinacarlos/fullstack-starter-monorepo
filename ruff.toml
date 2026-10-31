@@ -2,7 +2,7 @@ line-length = 100
 target-version = "py312"
 # Config lives at the repo root, so tell ruff where the first-party `app` package is.
 src = ["apps/api"]
-extend-exclude = ["apps/api/alembic/versions"]
+extend-exclude = ["apps/api/alembic/versions"] # scaffold:line db-layer
 
 [lint]
 select = ["E", "F", "I", "B", "UP"]
@@ -11,6 +11,8 @@ select = ["E", "F", "I", "B", "UP"]
 # FastAPI dependency injection uses Depends() in argument defaults.
 extend-immutable-calls = ["fastapi.Depends"]
 
+# scaffold:begin db-layer
 [lint.isort]
 # apps/api/alembic/ (migrations folder) has the same name as the alembic library.
 known-third-party = ["alembic"]
+# scaffold:end db-layer

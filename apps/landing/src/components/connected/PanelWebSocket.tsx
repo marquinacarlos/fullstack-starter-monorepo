@@ -10,7 +10,7 @@ type Status = "connecting" | "connected" | "disconnected";
 
 const MAX_MESSAGES = 6;
 
-// Independent panel: plain React state + the ws client. No react-query, no REST, no GraphQL.
+// Independent panel: plain React state + the ws client. No react-query and no other channel.
 export function PanelWebSocket() {
   const t = useTranslations("connected");
   const [status, setStatus] = useState<Status>("connecting");

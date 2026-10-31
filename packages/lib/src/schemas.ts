@@ -1,9 +1,13 @@
 import { z } from "zod";
 
+// scaffold:begin rest
 export const HealthResponseSchema = z.object({
   status: z.string(),
 });
 export type HealthResponse = z.infer<typeof HealthResponseSchema>;
+
+// scaffold:end rest
+// scaffold:begin items
 
 export const ItemSchema = z.object({
   id: z.number().int(),
@@ -21,6 +25,8 @@ export const ItemCreateSchema = z.object({
 });
 export type ItemCreate = z.infer<typeof ItemCreateSchema>;
 
+// scaffold:end items
+// scaffold:begin db-status
 export const DatabaseStatusSchema = z.object({
   name: z.string(),
   label: z.string(),
@@ -31,3 +37,4 @@ export type DatabaseStatus = z.infer<typeof DatabaseStatusSchema>;
 export const DatabasesResponseSchema = z.object({
   databases: z.array(DatabaseStatusSchema),
 });
+// scaffold:end db-status

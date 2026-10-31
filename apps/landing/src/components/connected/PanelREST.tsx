@@ -1,17 +1,20 @@
 "use client";
 
-import { api, HealthResponseSchema, ItemCreateSchema, ItemListSchema, type Item } from "@repo/lib";
-import { Button, Card, CardContent, CardHeader, Input } from "@repo/ui";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { api, HealthResponseSchema } from "@repo/lib";
+import { ItemCreateSchema, ItemListSchema, type Item } from "@repo/lib"; // scaffold:line items
+import { Card, CardContent, CardHeader } from "@repo/ui";
+import { Button, Input } from "@repo/ui"; // scaffold:line items
+import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query"; // scaffold:line items
 import { CheckCircle2, CircleAlert, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState } from "react"; // scaffold:line items
 import { useTranslations } from "next-intl";
 
 // Independent panel: its own queries (keys start with "rest"), its own state, no shared hooks.
 export function PanelREST() {
   const t = useTranslations("connected");
-  const queryClient = useQueryClient();
-  const [name, setName] = useState("");
+  const queryClient = useQueryClient(); // scaffold:line items
+  const [name, setName] = useState(""); // scaffold:line items
 
   const health = useQuery({
     queryKey: ["rest", "health"],
@@ -19,6 +22,7 @@ export function PanelREST() {
     refetchInterval: 5000,
   });
 
+  // scaffold:begin items
   const items = useQuery({
     queryKey: ["rest", "items"],
     queryFn: async (): Promise<Item[]> => ItemListSchema.parse((await api.get("/api/items")).data),
@@ -32,6 +36,8 @@ export function PanelREST() {
       await queryClient.invalidateQueries({ queryKey: ["rest", "items"] });
     },
   });
+
+  // scaffold:end items
 
   const status = health.isPending
     ? { icon: <Loader2 size={16} className="animate-spin" />, text: t("rest.checking") }
@@ -50,6 +56,7 @@ export function PanelREST() {
         </p>
         {health.isSuccess && <p className="text-xs text-muted-foreground">{t("rest.zod")}</p>}
 
+        {/* scaffold:begin items */}
         <h3 className="text-sm font-semibold">{t("rest.itemsTitle")}</h3>
         {items.isError && <p className="text-sm text-danger">{t("rest.itemsError")}</p>}
         {items.isSuccess && items.data.length === 0 && (
@@ -80,6 +87,7 @@ export function PanelREST() {
           </Button>
         </form>
         {addItem.isError && <p className="text-sm text-danger">{t("rest.saveError")}</p>}
+        {/* scaffold:end items */}
       </CardContent>
     </Card>
   );

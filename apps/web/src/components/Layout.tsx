@@ -1,14 +1,15 @@
 import { Button } from "@repo/ui";
-import { Info, Home, Languages, Moon, Sun } from "lucide-react";
+import { Info, Home, Languages } from "lucide-react";
+import { Moon, Sun } from "lucide-react"; // scaffold:line dark-mode
 import { useTranslation } from "react-i18next";
 import { NavLink, Outlet } from "react-router-dom";
 
 import { languages } from "../i18n";
-import { useThemeStore } from "../store/theme";
+import { useThemeStore } from "../store/theme"; // scaffold:line dark-mode
 
 export function Layout() {
   const { t, i18n } = useTranslation("common");
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, toggleTheme } = useThemeStore(); // scaffold:line dark-mode
   const current = i18n.resolvedLanguage;
 
   // Mobile first: 44px tap targets by default, compact from `md` up.
@@ -39,6 +40,7 @@ export function Layout() {
                 {lng.toUpperCase()}
               </Button>
             ))}
+            {/* scaffold:begin dark-mode */}
             <Button
               variant="secondary"
               onClick={toggleTheme}
@@ -49,6 +51,7 @@ export function Layout() {
                 {t("buttons.toggleTheme")} ({t(`theme.${theme}`)})
               </span>
             </Button>
+            {/* scaffold:end dark-mode */}
           </div>
           <nav className="order-last flex w-full gap-1 md:order-none md:w-auto">
             <NavLink to="/" end className={linkClass}>

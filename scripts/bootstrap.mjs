@@ -17,29 +17,37 @@ function fail(message) {
   process.exit(1);
 }
 
+// scaffold:begin api
 function succeeds(command, args) {
   const result = spawnSync(command, args, { cwd: root, stdio: "ignore", shell });
   return result.status === 0;
 }
+// scaffold:end api
 
 function run(command, args, cwd = root) {
   const result = spawnSync(command, args, { cwd, stdio: "inherit", shell });
   if (result.status !== 0) fail(`"${command} ${args.join(" ")}" exited with ${result.status}`);
 }
 
+// scaffold:begin api
 log("Checking tools");
 if (!succeeds("uv", ["--version"])) {
   fail("uv is not installed. Install it from https://docs.astral.sh/uv/ and run again.");
 }
+// scaffold:end api
 
 log("JavaScript dependencies (pnpm install)");
 run("pnpm", ["install"]);
 
+// scaffold:begin api
 log("Python dependencies (uv sync)");
 run("uv", ["sync"], join(root, "apps", "api"));
+// scaffold:end api
 
+// scaffold:begin db-layer
 log("Databases (migrations for every enabled and reachable database)");
 run("pnpm", ["--filter", "@repo/api", "db:migrate"]);
+// scaffold:end db-layer
 
 log("Done. Start everything with: pnpm dev");
-process.stdout.write("PostgreSQL is optional. To use it: pnpm db:up (see docs/DATABASES.md)\n");
+process.stdout.write("PostgreSQL is optional. To use it: pnpm db:up (see docs/DATABASES.md)\n"); // scaffold:line postgres

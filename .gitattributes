@@ -1,5 +1,5 @@
-# Same line endings everywhere. Without this, Windows checkouts (including the Windows CI
-# runner for Electron) can get CRLF and break Prettier/ESLint checks.
+# Same line endings everywhere. Without this, Windows checkouts (including Windows CI runners)
+# can get CRLF and break Prettier/ESLint checks.
 * text=auto eol=lf
 
 # Binary files: never touch them.
