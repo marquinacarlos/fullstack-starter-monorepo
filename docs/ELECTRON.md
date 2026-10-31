@@ -9,7 +9,7 @@ App: `apps/desktop`. Tools: `electron-vite` (build), `electron-builder` (install
 | `pnpm build`        | Compiles main, preload and renderer to `apps/desktop/out/`. No installer. Runs in CI on every PR |
 | `pnpm dist:desktop` | Build + `electron-builder`: installers in `apps/desktop/release/`                                |
 
-`electron-builder` builds for the **current OS**. To get all three installers use CI (the `electron` job runs a matrix on macOS, Windows and Linux).
+`electron-builder` builds for the **current OS**. To get all three installers use CI (`.github/workflows/ci-desktop.yml` runs a matrix on macOS, Windows and Linux).
 
 ## Installers
 

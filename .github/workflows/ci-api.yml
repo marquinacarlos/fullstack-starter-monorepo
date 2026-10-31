@@ -1,0 +1,29 @@
+name: CI API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: CI only reads the repo. Jobs that publish must ask for more.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api:
+    name: Lint and test (API)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-uv
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run pytest

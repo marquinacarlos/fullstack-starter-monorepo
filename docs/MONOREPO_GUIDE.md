@@ -30,6 +30,20 @@
 
 `globalEnv` lists env vars that change the build (`VITE_API_URL`). The `build` task has `.env*` as inputs, so editing an env file (even an ignored one like `.env.production`) invalidates the cache. `globalPassThroughEnv` lets the API see `APP_ENV`, `SQLITE_URL`, `POSTGRES_URL` and `CORS_ORIGINS` (Turborepo hides undeclared variables).
 
+## CI
+
+One workflow per piece, so adding or removing an app is adding or deleting a file. The steps they share live in `.github/actions/`.
+
+| File                             | What it runs                                                                                                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `ci-base.yml`                    | Prettier on the whole repo                                                                                                         |
+| `ci-web.yml`, `ci-landing.yml`   | `turbo run lint test build` for that app and the packages it uses. On pull requests only when the change affects it (`--affected`) |
+| `ci-api.yml`                     | `ruff` and `pytest`                                                                                                                |
+| `ci-desktop.yml`                 | Electron installers on Ubuntu, macOS and Windows                                                                                   |
+| `actions/setup-node`, `setup-uv` | Shared setup: pnpm, Node and install; uv and the API dependencies                                                                  |
+
+Every workflow runs on pull requests and on pushes to `main`, with read-only permissions.
+
 ## Add an app
 
 1. Create `apps/<name>/package.json` with `"name": "@repo/<name>"` and scripts `dev`, `build`, `lint`, `test`.
@@ -37,7 +51,7 @@
 3. If it uses Tailwind, copy the CSS header from `apps/web/src/index.css`.
 4. Pick a free port and add its origin to `CORS_ORIGINS` (`apps/api/.env.development` and `.env.production.example`) if it calls the API.
 5. Run `pnpm install`. Add a README and `docs/`.
-6. Add it to CI if it needs a special job.
+6. Add its CI: copy the workflow closest to it in `.github/workflows/` (see [CI](#ci)).
 
 ## Add a package
 
@@ -50,7 +64,7 @@
 1. Delete the folder.
 2. Remove `workspace:*` references to it in other `package.json` files.
 3. Run `pnpm install`.
-4. Clean docs, CI and env file mentions. See the matrix in [AI_CONTEXT.md](AI_CONTEXT.md).
+4. Delete its workflow in `.github/workflows/` (`ci-<app>.yml`). Clean docs and env file mentions. See the matrix in [AI_CONTEXT.md](AI_CONTEXT.md).
 
 ## Dependencies and install scripts
 

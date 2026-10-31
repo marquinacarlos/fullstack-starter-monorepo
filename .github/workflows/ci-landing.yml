@@ -1,0 +1,38 @@
+name: CI Landing
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Least privilege: CI only reads the repo. Jobs that publish must ask for more.
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  landing:
+    name: Lint, test, build (Landing)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Turborepo needs history to find affected packages
+
+      - uses: ./.github/actions/setup-node
+
+      # "@repo/landing..." is the app plus the packages it depends on.
+      # Pull requests only run it when the change affects it. Pushes to main always run it.
+      - name: Lint, test, build (affected only)
+        if: github.event_name == 'pull_request'
+        run: pnpm turbo run lint test build --filter=@repo/landing... --affected
+        env:
+          TURBO_SCM_BASE: origin/${{ github.base_ref }}
+
+      - name: Lint, test, build
+        if: github.event_name != 'pull_request'
+        run: pnpm turbo run lint test build --filter=@repo/landing...
