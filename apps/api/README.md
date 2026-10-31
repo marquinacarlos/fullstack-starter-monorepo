@@ -9,7 +9,7 @@ Run them from the repo root with Turborepo (`pnpm dev`) or here with `pnpm`:
 | Command | What it does |
 | --- | --- |
 | `pnpm dev` | Applies migrations, then `uvicorn --reload` on http://localhost:8000 |
-| `pnpm migrate` | Upgrades every database that is enabled and reachable (strict: fails if a migration fails) |
+| `pnpm db:migrate` | Upgrades every database that is enabled and reachable (strict: fails if a migration fails) |
 | `pnpm lint` | `ruff check` + `ruff format --check` |
 | `pnpm test` | `pytest` (no Docker, no files: in-memory SQLite) |
 | `pnpm build` | Byte-compiles `app/` to catch syntax errors |

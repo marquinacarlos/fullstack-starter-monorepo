@@ -1,4 +1,4 @@
-"""Upgrade every database that is enabled and reachable. Used by `pnpm migrate` and `pnpm dev`.
+"""Upgrade every database that is enabled and reachable. Used by `pnpm db:migrate` and `pnpm dev`.
 
 A disabled or unreachable database is skipped with a message: a database that is not there
 must never block the API from starting.

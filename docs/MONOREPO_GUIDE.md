@@ -10,7 +10,7 @@
 | ---------------------------------- | ------------------------------------------------------ |
 | `pnpm bootstrap`                   | First run: installs, migrations (no Docker needed)     |
 | `pnpm db:up` / `pnpm db:down`      | Start / stop the optional PostgreSQL (Docker)          |
-| `pnpm migrate`                     | Upgrades every enabled and reachable database          |
+| `pnpm db:migrate`                  | Upgrades every enabled and reachable database          |
 | `pnpm dev`                         | Runs `dev` in every app (api, web, desktop, landing)   |
 | `pnpm check`                       | Format check + lint + test + build, API included       |
 | `pnpm build`                       | Builds everything (Electron is compiled, not packaged) |

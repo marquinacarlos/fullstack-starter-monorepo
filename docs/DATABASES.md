@@ -37,7 +37,7 @@ To remove it for good, delete its code: see the decision matrix in [AI_CONTEXT.m
 
 ```bash
 pnpm db:up          # starts Postgres in Docker and waits until it is healthy
-pnpm migrate        # upgrades every database that is enabled and reachable
+pnpm db:migrate        # upgrades every database that is enabled and reachable
 ```
 
 The API notices the change by itself: the panel goes from "not available" to "connected" without a restart. Stop it with `pnpm db:down`.
@@ -47,8 +47,8 @@ PostgreSQL ships connected but **empty**: there is no demo model on it. Add your
 ## Seeds (demo data)
 
 ```bash
-pnpm migrate        # the tables must exist first
-pnpm seed           # adds demo data to every database that is enabled, reachable and has a seed
+pnpm db:migrate        # the tables must exist first
+pnpm db:seed           # adds demo data to every database that is enabled, reachable and has a seed
 ```
 
 Each database can have **its own seed**: a file named like the database, `apps/api/app/seeds/<name>.py`, with one function:
@@ -63,19 +63,19 @@ The runner (`app/db/seed.py`) finds the file by the database name, so it works f
 
 Rules:
 
-- **Idempotent.** Running `pnpm seed` twice must not duplicate rows. The SQLite seed matches by `name`. Do the same in yours.
-- **Manual.** `pnpm bootstrap` and `pnpm dev` never seed. Run `pnpm seed` when you want data.
-- **Not for production.** With `APP_ENV=production` it refuses to run. `pnpm seed --force` overrides that.
-- **Needs the tables.** If they are missing it says so and exits with code 1: run `pnpm migrate`.
+- **Idempotent.** Running `pnpm db:seed` twice must not duplicate rows. The SQLite seed matches by `name`. Do the same in yours.
+- **Manual.** `pnpm bootstrap` and `pnpm dev` never seed. Run `pnpm db:seed` when you want data.
+- **Not for production.** With `APP_ENV=production` it refuses to run. `pnpm db:seed --force` overrides that.
+- **Needs the tables.** If they are missing it says so and exits with code 1: run `pnpm db:migrate`.
 
-Package scripts in `apps/api` (run them from the root with `pnpm --filter @repo/api <script>`):
+Package scripts in `apps/api`. `pnpm db:migrate` and `pnpm db:seed` also work from the root; for the others use `pnpm --filter @repo/api <script>`:
 
 | Script              | What it does                                                                             |
 | ------------------- | ---------------------------------------------------------------------------------------- |
-| `db:migrate`        | Upgrade head on every enabled and reachable database (same as `pnpm migrate`)            |
+| `db:migrate`        | Upgrade head on every enabled and reachable database                                     |
 | `db:migrate:create` | Autogenerate a migration for SQLite: `... db:migrate:create "message"`                   |
 | `db:rollback`       | Downgrade the SQLite database by one migration                                           |
-| `db:seed`           | Seeding (same as `pnpm seed`): `python -m app.seeds.run_seeds`                           |
+| `db:seed`           | Seeding: `python -m app.seeds.run_seeds`                                                 |
 | `db:setup`          | `db:migrate`, then `db:seed`. The migration (DDL) always runs before the seed data (DML) |
 
 For PostgreSQL migrations use Alembic directly with its section: `uv run alembic -n postgres revision --autogenerate -m "message"`.
@@ -101,7 +101,7 @@ Each database has its own models package and its own migrations. A model belongs
    ```bash
    cd apps/api
    uv run alembic -n postgres revision --autogenerate -m "create notes"
-   pnpm migrate
+   pnpm db:migrate
    ```
 
 4. In a route, use the matching dependency from `app/api/deps.py`: `PostgresSession` (or `SqliteSession`). In GraphQL, use `with postgres_db.session() as db:`.
@@ -124,7 +124,7 @@ To **move** the demo `items` table to PostgreSQL: change `Item` to inherit from 
 4. Copy `alembic/postgres/` to `alembic/analytics/`, change its `env.py` to use `analytics_db`, and add an `[analytics]` section to `alembic.ini`.
 5. Add `ANALYTICS_URL` to the env files and to `globalPassThroughEnv` in `turbo.json`.
 
-The status endpoint, the panel, the startup summary and `pnpm migrate` pick it up automatically.
+The status endpoint, the panel, the startup summary and `pnpm db:migrate` pick it up automatically.
 
 ## Things to know
 

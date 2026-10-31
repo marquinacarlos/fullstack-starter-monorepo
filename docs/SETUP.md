@@ -20,7 +20,7 @@ pnpm dev
 ```bash
 pnpm install
 (cd apps/api && uv sync)
-pnpm --filter @repo/api migrate
+pnpm db:migrate
 pnpm dev
 ```
 
@@ -86,8 +86,8 @@ pnpm test            # vitest per app + pytest for the API
 pnpm build           # build all, including Electron (compile only)
 pnpm dist:desktop    # create installers (see ELECTRON.md)
 pnpm format          # Prettier for TS/JS/CSS/MD/JSON
-pnpm migrate         # create or upgrade the tables of every enabled database
-pnpm seed            # add demo data (needs the tables; see DATABASES.md#seeds-demo-data)
+pnpm db:migrate         # create or upgrade the tables of every enabled database
+pnpm db:seed            # add demo data (needs the tables; see DATABASES.md#seeds-demo-data)
 ```
 
 ## Troubleshooting

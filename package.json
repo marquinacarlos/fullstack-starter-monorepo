@@ -20,8 +20,8 @@
     "bootstrap": "node scripts/bootstrap.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose down",
-    "migrate": "pnpm --filter @repo/api migrate",
-    "seed": "pnpm --filter @repo/api seed",
+    "db:migrate": "pnpm --filter @repo/api db:migrate",
+    "db:seed": "pnpm --filter @repo/api db:seed",
     "check": "pnpm format:check && turbo run lint test build"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@ from app.models.sqlite import Item
 
 ITEMS = [
     {"name": "First item", "description": "Added by the seed"},
-    {"name": "Second item", "description": "Run `pnpm seed` again: nothing is duplicated"},
+    {"name": "Second item", "description": "Run `pnpm db:seed` again: nothing is duplicated"},
     {"name": "Third item", "description": None},
 ]
 

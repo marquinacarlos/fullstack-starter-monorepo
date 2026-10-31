@@ -1,4 +1,4 @@
-"""Load demo data into every database that is enabled and reachable. Used by `pnpm seed`.
+"""Load demo data into every database that is enabled and reachable. Used by `pnpm db:seed`.
 
 Each database may have a seed module `app/seeds/<database name>.py` with a function
 `seed(session) -> int` that returns how many rows it added. A database without that module is
@@ -51,7 +51,7 @@ def main(force: bool = False) -> int:
         missing = set(db.Base.metadata.tables) - set(inspect(db.engine).get_table_names())
         if missing:
             failed = True
-            print(f"[{db.name}] FAILED: missing tables {sorted(missing)}. Run `pnpm migrate`.")
+            print(f"[{db.name}] FAILED: missing tables {sorted(missing)}. Run `pnpm db:migrate`.")
             continue
 
         with db.session() as session:

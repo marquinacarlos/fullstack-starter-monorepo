@@ -97,7 +97,7 @@ After removing SQLite and PostgreSQL:
 1. Delete `apps/api/app/db/`, `apps/api/app/models/`, `apps/api/app/seeds/`, `apps/api/alembic/`, `apps/api/alembic.ini`, `app/api/routes/databases.py`, `app/schemas/database.py`, `app/api/deps.py`, `tests/test_databases.py` and `tests/test_seed.py`.
 2. In `app/main.py`: remove the `databases` route (import and `include_router`), the `lifespan` (and `lifespan=lifespan`), and the `register_db_error_handlers` line with its import.
 3. In `app/core/config.py`: delete the database fields, the validator and the `field_validator` import. In the comment above `model_config`, drop "alembic" from "where uvicorn, alembic and pytest run".
-4. Remove `migrate`, `seed` and every `db:*` script from `apps/api/package.json`, and `migrate` and `seed` from the root `package.json`. In `apps/api/package.json`, make `dev` just `uvicorn`. In `apps/api/Dockerfile`, drop `python -m app.db.migrate &&` from the CMD and the two comment lines above it ("Apply migrations...").
+4. Remove every `db:*` script from `apps/api/package.json`, and `db:migrate` and `db:seed` from the root `package.json`. In `apps/api/package.json`, make `dev` just `uvicorn`. In `apps/api/Dockerfile`, drop `python -m app.db.migrate &&` from the CMD and the two comment lines above it ("Apply migrations...").
 5. Delete the migrations step in `scripts/bootstrap.mjs`.
 6. In `apps/api`: `uv remove sqlalchemy alembic`.
 7. Env files: keep only `CORS_ORIGINS`.

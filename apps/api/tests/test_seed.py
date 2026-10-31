@@ -42,5 +42,5 @@ def test_seed_refuses_to_run_in_production(client, monkeypatch):
 
 
 def test_seed_reports_missing_tables():
-    # No `client` fixture: the tables were never created, as before `pnpm migrate`.
+    # No `client` fixture: the tables were never created, as before `pnpm db:migrate`.
     assert seed_runner.main() == 1
