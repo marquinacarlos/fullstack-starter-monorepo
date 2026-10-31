@@ -44,6 +44,30 @@ The API notices the change by itself: the panel goes from "not available" to "co
 
 PostgreSQL ships connected but **empty**: there is no demo model on it. Add your own (below).
 
+## Seeds (demo data)
+
+```bash
+pnpm migrate        # the tables must exist first
+pnpm seed           # adds demo data to every database that is enabled, reachable and has a seed
+```
+
+Each database can have **its own seed**: a file named like the database, `apps/api/app/seeds/<name>.py`, with one function:
+
+```python
+# apps/api/app/seeds/sqlite.py
+def seed(session: Session) -> int:
+    """Add what is missing and return how many rows were added."""
+```
+
+The runner (`app/db/seed.py`) finds the file by the database name, so it works for any database you add. A database without a seed file is skipped with a message. Today only SQLite has one (the demo items); PostgreSQL has no models yet, so there is nothing to seed.
+
+Rules:
+
+- **Idempotent.** Running `pnpm seed` twice must not duplicate rows. The SQLite seed matches by `name`. Do the same in yours.
+- **Manual.** `pnpm bootstrap` and `pnpm dev` never seed. Run `pnpm seed` when you want data.
+- **Not for production.** With `APP_ENV=production` it refuses to run. `pnpm seed --force` overrides that.
+- **Needs the tables.** If they are missing it says so and exits with code 1: run `pnpm migrate`.
+
 ## Add a model to a database
 
 Each database has its own models package and its own migrations. A model belongs to **one** database.
@@ -84,7 +108,7 @@ To **move** the demo `items` table to PostgreSQL: change `Item` to inherit from 
    )
    ```
 
-3. Create `app/models/analytics/__init__.py`.
+3. Create `app/models/analytics/__init__.py`. If it needs demo data, add `app/seeds/analytics.py` (see [Seeds](#seeds-demo-data)).
 4. Copy `alembic/postgres/` to `alembic/analytics/`, change its `env.py` to use `analytics_db`, and add an `[analytics]` section to `alembic.ini`.
 5. Add `ANALYTICS_URL` to the env files and to `globalPassThroughEnv` in `turbo.json`.
 

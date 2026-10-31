@@ -68,7 +68,7 @@ Each scenario below was applied to a copy of the repo. After it, `pnpm check` pa
 
 #### Remove SQLite
 
-1. Delete `apps/api/app/models/sqlite/`, `apps/api/alembic/sqlite/` and the `[sqlite]` section of `apps/api/alembic.ini`.
+1. Delete `apps/api/app/models/sqlite/`, `apps/api/app/seeds/sqlite.py`, `apps/api/alembic/sqlite/` and the `[sqlite]` section of `apps/api/alembic.ini`.
 2. In `app/db/databases.py`: delete the `sqlite_db` instance and take it out of the `databases` list.
 3. In `app/core/config.py`: delete `sqlite_url` and its name in `empty_means_disabled`.
 4. Delete the `SQLITE_URL` lines in `apps/api/.env.development` and `.env.production.example`, and `"SQLITE_URL"` in `globalPassThroughEnv` (`turbo.json`).
@@ -76,7 +76,7 @@ Each scenario below was applied to a copy of the repo. After it, `pnpm check` pa
 6. The demo items live in SQLite, so remove them too:
    - Delete `app/api/routes/items.py` and `app/schemas/item.py`. In `app/main.py` remove `items` from the import and its `include_router` line.
    - In `app/api/graphql/resolvers.py`: delete `ItemType` and the `items` field (keep `health`).
-   - Tests: delete `tests/test_items.py` and the items test in `tests/test_graphql.py`. Make `tests/conftest.py` a plain `TestClient` fixture. Remove `SQLITE_URL` from `tests/__init__.py` and the SQLite cases from `tests/test_databases.py`.
+   - Tests: delete `tests/test_items.py`, `tests/test_seed.py` and the items test in `tests/test_graphql.py`. Make `tests/conftest.py` a plain `TestClient` fixture. Remove `SQLITE_URL` from `tests/__init__.py` and the SQLite cases from `tests/test_databases.py`.
    - Web and desktop: remove the items parts of `PanelREST.tsx` and `PanelGraphQL.tsx` (keep the health status) and their `items` keys in the `home.json` files.
 
 #### Remove PostgreSQL
@@ -94,10 +94,10 @@ Each scenario below was applied to a copy of the repo. After it, `pnpm check` pa
 
 After removing SQLite and PostgreSQL:
 
-1. Delete `apps/api/app/db/`, `apps/api/app/models/`, `apps/api/alembic/`, `apps/api/alembic.ini`, `app/api/routes/databases.py`, `app/schemas/database.py`, `app/api/deps.py` and `tests/test_databases.py`.
+1. Delete `apps/api/app/db/`, `apps/api/app/models/`, `apps/api/app/seeds/`, `apps/api/alembic/`, `apps/api/alembic.ini`, `app/api/routes/databases.py`, `app/schemas/database.py`, `app/api/deps.py`, `tests/test_databases.py` and `tests/test_seed.py`.
 2. In `app/main.py`: remove the `databases` route (import and `include_router`), the `lifespan` (and `lifespan=lifespan`), and the `register_db_error_handlers` line with its import.
 3. In `app/core/config.py`: delete the database fields, the validator and the `field_validator` import.
-4. Remove `migrate` from `apps/api/package.json` and the root `package.json`. In `apps/api/package.json`, make `dev` just `uvicorn`. In `apps/api/Dockerfile`, drop `python -m app.db.migrate &&` from the CMD.
+4. Remove `migrate` and `seed` from `apps/api/package.json` and the root `package.json`. In `apps/api/package.json`, make `dev` just `uvicorn`. In `apps/api/Dockerfile`, drop `python -m app.db.migrate &&` from the CMD.
 5. Delete the migrations step in `scripts/bootstrap.mjs`.
 6. In `apps/api`: `uv remove sqlalchemy alembic`.
 7. Env files: keep only `CORS_ORIGINS`.
