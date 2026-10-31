@@ -129,6 +129,7 @@ With no database left, the API still serves `/health`, GraphQL `health` and the 
 - Native install scripts are allow-listed in `pnpm-workspace.yaml` (`allowBuilds`). If `pnpm install` fails with `ERR_PNPM_IGNORED_BUILDS`, decide per package and add it there.
 - TypeScript is pinned to 6.0 because `typescript-eslint` does not support 7 yet. Check before upgrading.
 - Auto-update and installers need a GitHub repo, releases and code signing. See [ELECTRON.md](ELECTRON.md).
+- CI runs `ruff` and `pytest` for the API, not the migrations: tests build tables from the models with in-memory SQLite, so a model change without its Alembic migration still passes. When you add or change a model, run `uv run alembic -n <database> check` and `pnpm db:migrate`. Once the project has real models or uses PostgreSQL, add `alembic check` to the `api` job in `.github/workflows/ci.yml`.
 
 ## How to add things
 
