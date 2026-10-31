@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Node.js >= 20.19 and pnpm >= 9 (the repo pins `packageManager`)
+- Node.js >= 22.13 (pnpm 11 needs it; CI uses 24) and pnpm >= 11 (the repo pins `packageManager`)
 - Python >= 3.12 and [uv](https://docs.astral.sh/uv/)
 - Docker (optional: only if you want PostgreSQL)
 
@@ -33,7 +33,7 @@ pnpm dev
 | Desktop | Electron window (renderer on port 5174)                         |
 | Landing | http://localhost:3000                                           |
 
-Open web or desktop: you should see three panels (REST, GraphQL, WebSocket) with green status. Landing shows EN/ES buttons.
+Open web or desktop: you should see three panels (REST, GraphQL, WebSocket) with green status. The items lists are empty until you run `pnpm db:seed` (it adds 3 demo items; see [DATABASES.md](DATABASES.md#seeds-demo-data)). Landing shows EN/ES buttons.
 
 If something shows an error, see [Troubleshooting](#troubleshooting).
 

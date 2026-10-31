@@ -12,4 +12,14 @@ A reusable template for full-stack projects, built as a **pnpm + Turborepo** mon
 
 Every library and every channel included has its own visible proof on screen when you run `pnpm dev`. If your project does not need something, remove it.
 
-Start with [docs/SETUP.md](docs/SETUP.md). If you are an AI agent, read [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) first.
+## Quick start
+
+```bash
+pnpm bootstrap   # install everything and create the tables (no Docker needed)
+pnpm db:seed     # optional: demo data
+pnpm dev         # run every app
+```
+
+- Starting a new project from this template: [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md).
+- Requirements, ports and environment variables: [docs/SETUP.md](docs/SETUP.md).
+- If you are an AI agent, read [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) first.

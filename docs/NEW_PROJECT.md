@@ -6,7 +6,7 @@ Goal: clone, rename a few values, remove what you do not need, and start buildin
 
 The repo manages its own dependencies, but not these tools. Install them first:
 
-- Node.js >= 20.19 and pnpm (the repo pins the `packageManager` version)
+- Node.js >= 22.13 (pnpm 11 needs it; CI uses 24) and pnpm (the repo pins the `packageManager` version)
 - Python >= 3.12 and [uv](https://docs.astral.sh/uv/)
 - Docker (optional: only if you want PostgreSQL)
 
@@ -24,7 +24,7 @@ pnpm bootstrap
 pnpm dev
 ```
 
-`pnpm bootstrap` installs JS and Python dependencies and runs the migrations (it creates the SQLite file). It needs `uv`; **Docker is not needed**. It is safe to run again. PostgreSQL is optional: `pnpm db:up`. There is nothing to copy: development values already come in each app's `.env.development`.
+`pnpm bootstrap` installs JS and Python dependencies and runs the migrations (it creates the SQLite file). It needs `uv`; **Docker is not needed**. It is safe to run again. It does not add data: run `pnpm db:seed` if you want the demo items (see [DATABASES.md](DATABASES.md#seeds-demo-data)). PostgreSQL is optional: `pnpm db:up`. There is nothing to copy: development values already come in each app's `.env.development`.
 
 Note: the script is called `bootstrap` because `pnpm setup` is a built-in pnpm command.
 

@@ -10,6 +10,10 @@ Run them from the repo root with Turborepo (`pnpm dev`) or here with `pnpm`:
 | --- | --- |
 | `pnpm dev` | Applies migrations, then `uvicorn --reload` on http://localhost:8000 |
 | `pnpm db:migrate` | Upgrades every database that is enabled and reachable (strict: fails if a migration fails) |
+| `pnpm db:seed` | Adds demo data to every enabled database that has a seed (needs the tables) |
+| `pnpm db:setup` | `db:migrate`, then `db:seed` |
+| `pnpm db:migrate:create "msg"` | Autogenerates a SQLite migration (for PostgreSQL see [DATABASES.md](../../docs/DATABASES.md)) |
+| `pnpm db:rollback` | Downgrades the SQLite database by one migration |
 | `pnpm lint` | `ruff check` + `ruff format --check` |
 | `pnpm test` | `pytest` (no Docker, no files: in-memory SQLite) |
 | `pnpm build` | Byte-compiles `app/` to catch syntax errors |
