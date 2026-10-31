@@ -9,6 +9,11 @@
     "lint": "uv run ruff check . && uv run ruff format --check .",
     "test": "uv run pytest",
     "migrate": "uv run python -m app.db.migrate",
-    "seed": "uv run python -m app.db.seed"
+    "seed": "uv run python -m app.db.seed",
+    "db:migrate": "uv run python -m app.db.migrate",
+    "db:migrate:create": "uv run alembic -n sqlite revision --autogenerate -m",
+    "db:rollback": "uv run alembic -n sqlite downgrade -1",
+    "db:seed": "uv run python -m app.seeds.run_seeds",
+    "db:setup": "pnpm run db:migrate && pnpm run db:seed"
   }
 }

@@ -68,6 +68,18 @@ Rules:
 - **Not for production.** With `APP_ENV=production` it refuses to run. `pnpm seed --force` overrides that.
 - **Needs the tables.** If they are missing it says so and exits with code 1: run `pnpm migrate`.
 
+Package scripts in `apps/api` (run them from the root with `pnpm --filter @repo/api <script>`):
+
+| Script              | What it does                                                                             |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| `db:migrate`        | Upgrade head on every enabled and reachable database (same as `pnpm migrate`)            |
+| `db:migrate:create` | Autogenerate a migration for SQLite: `... db:migrate:create "message"`                   |
+| `db:rollback`       | Downgrade the SQLite database by one migration                                           |
+| `db:seed`           | Seeding (same as `pnpm seed`): `python -m app.seeds.run_seeds`                           |
+| `db:setup`          | `db:migrate`, then `db:seed`. The migration (DDL) always runs before the seed data (DML) |
+
+For PostgreSQL migrations use Alembic directly with its section: `uv run alembic -n postgres revision --autogenerate -m "message"`.
+
 ## Add a model to a database
 
 Each database has its own models package and its own migrations. A model belongs to **one** database.
