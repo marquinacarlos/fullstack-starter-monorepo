@@ -18,6 +18,8 @@
     "format:check": "prettier --check .",
     "dist:desktop": "pnpm --filter @repo/desktop dist:desktop",
     "bootstrap": "node scripts/bootstrap.mjs",
+    "scaffold": "node scripts/scaffold/index.mjs",
+    "scaffold:verify": "node scripts/scaffold/verify.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose down",
     "db:migrate": "pnpm --filter @repo/api db:migrate",
